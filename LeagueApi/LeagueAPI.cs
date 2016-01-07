@@ -21,23 +21,48 @@ namespace LeagueApi
             return false;
         }
     }
-    public class Mastery
+    public class Mastery : IEquatable<Mastery>
     {
         public long masteryId { get; set; }
         public int rank { get; set; }
+
+        public bool Equals(Mastery other)
+        {
+            if (this.masteryId == other.masteryId &&
+            this.rank == other.rank)
+                return true;
+            return false;
+        }
     }
-    public class Rune
+    public class Rune : IEquatable<Rune>
     {
         public int count { get; set; }
         public long runeId { get; set; }
+
+        public bool Equals(Rune other)
+        {
+            if (this.count == other.count &&
+            this.runeId == other.runeId)
+                return true;
+            return false;
+        }
     }
-    public class BannedChampion
+    public class BannedChampion : IEquatable<BannedChampion>
     {
         public long championId { get; set; }
         public int pickTurn { get; set; }
         public long teamId { get; set; }
+
+        public bool Equals(BannedChampion other)
+        {
+            if (this.championId == other.championId &&
+            this.pickTurn == other.pickTurn &&
+            this.teamId == other.teamId)
+                return true;
+            return false;
+        }
     }
-    public class BasicDataStatsDto
+    public class BasicDataStatsDto : IEquatable<BasicDataStatsDto>
     {
         public double FlatArmorMod { get; set; }
         public double FlatAttackSpeedMod { get; set; }
@@ -104,29 +129,130 @@ namespace LeagueApi
         public double rPercentMovementSpeedModPerLevel { get; set; }
         public double rPercentTimeDeadMod { get; set; }
         public double rPercentTimeDeadModPerLevel { get; set; }
+
+        public bool Equals(BasicDataStatsDto other)
+        {
+            if (this.FlatArmorMod == other.FlatArmorMod &&
+            this.FlatAttackSpeedMod == other.FlatAttackSpeedMod &&
+            this.FlatBlockMod == other.FlatBlockMod &&
+            this.FlatCritChanceMod == other.FlatCritChanceMod &&
+            this.FlatCritDamageMod == other.FlatCritDamageMod &&
+            this.FlatEXPBonus == other.FlatEXPBonus &&
+            this.FlatEnergyPoolMod == other.FlatEnergyPoolMod &&
+            this.FlatEnergyRegenMod == other.FlatEnergyRegenMod &&
+            this.FlatHPPoolMod == other.FlatHPPoolMod &&
+            this.FlatHPRegenMod == other.FlatHPRegenMod &&
+            this.FlatMPPoolMod == other.FlatMPPoolMod &&
+            this.FlatMPRegenMod == other.FlatMPRegenMod &&
+            this.FlatMagicDamageMod == other.FlatMagicDamageMod &&
+            this.FlatMovementSpeedMod == other.FlatMovementSpeedMod &&
+            this.FlatPhysicalDamageMod == other.FlatPhysicalDamageMod &&
+            this.FlatSpellBlockMod == other.FlatSpellBlockMod &&
+            this.PercentArmorMod == other.PercentArmorMod &&
+            this.PercentAttackSpeedMod == other.PercentAttackSpeedMod &&
+            this.PercentBlockMod == other.PercentBlockMod &&
+            this.PercentCritChanceMod == other.PercentCritChanceMod &&
+            this.PercentCritDamageMod == other.PercentCritDamageMod &&
+            this.PercentDodgeMod == other.PercentDodgeMod &&
+            this.PercentEXPBonus == other.PercentEXPBonus &&
+            this.PercentHPPoolMod == other.PercentHPPoolMod &&
+            this.PercentHPRegenMod == other.PercentHPRegenMod &&
+            this.PercentLifeStealMod == other.PercentLifeStealMod &&
+            this.PercentMPPoolMod == other.PercentMPPoolMod &&
+            this.PercentMPRegenMod == other.PercentMPRegenMod &&
+            this.PercentMagicDamageMod == other.PercentMagicDamageMod &&
+            this.PercentMovementSpeedMod == other.PercentMovementSpeedMod &&
+            this.PercentPhysicalDamageMod == other.PercentPhysicalDamageMod &&
+            this.PercentSpellBlockMod == other.PercentSpellBlockMod &&
+            this.PercentSpellVampMod == other.PercentSpellVampMod &&
+            this.rFlatArmorModPerLevel == other.rFlatArmorModPerLevel &&
+            this.rFlatArmorPenetrationMod == other.rFlatArmorPenetrationMod &&
+            this.rFlatArmorPenetrationModPerLevel == other.rFlatArmorPenetrationModPerLevel &&
+            this.rFlatCritChanceModPerLevel == other.rFlatCritChanceModPerLevel &&
+            this.rFlatCritDamageModPerLevel == other.rFlatCritDamageModPerLevel &&
+            this.rFlatDodgeMod == other.rFlatDodgeMod &&
+            this.rFlatDodgeModPerLevel == other.rFlatDodgeModPerLevel &&
+            this.rFlatEnergyModPerLevel == other.rFlatEnergyModPerLevel &&
+            this.rFlatEnergyRegenModPerLevel == other.rFlatEnergyRegenModPerLevel &&
+            this.rFlatGoldPer10Mod == other.rFlatGoldPer10Mod &&
+            this.rFlatHPModPerLevel == other.rFlatHPModPerLevel &&
+            this.rFlatHPRegenModPerLevel == other.rFlatHPRegenModPerLevel &&
+            this.rFlatMPModPerLevel == other.rFlatMPModPerLevel &&
+            this.rFlatMPRegenModPerLevel == other.rFlatMPRegenModPerLevel &&
+            this.rFlatMagicDamageModPerLevel == other.rFlatMagicDamageModPerLevel &&
+            this.rFlatMagicPenetrationMod == other.rFlatMagicPenetrationMod &&
+            this.rFlatMagicPenetrationModPerLevel == other.rFlatMagicPenetrationModPerLevel &&
+            this.rFlatMovementSpeedModPerLevel == other.rFlatMovementSpeedModPerLevel &&
+            this.rFlatPhysicalDamageModPerLevel == other.rFlatPhysicalDamageModPerLevel &&
+            this.rFlatSpellBlockModPerLevel == other.rFlatSpellBlockModPerLevel &&
+            this.rFlatTimeDeadMod == other.rFlatTimeDeadMod &&
+            this.rFlatTimeDeadModPerLevel == other.rFlatTimeDeadModPerLevel &&
+            this.rPercentArmorPenetrationMod == other.rPercentArmorPenetrationMod &&
+            this.rPercentArmorPenetrationModPerLevel == other.rPercentArmorPenetrationModPerLevel &&
+            this.rPercentAttackSpeedModPerLevel == other.rPercentAttackSpeedModPerLevel &&
+            this.rPercentCooldownMod == other.rPercentCooldownMod &&
+            this.rPercentCooldownModPerLevel == other.rPercentCooldownModPerLevel &&
+            this.rPercentMagicPenetrationMod == other.rPercentMagicPenetrationMod &&
+            this.rPercentMagicPenetrationModPerLevel == other.rPercentMagicPenetrationModPerLevel &&
+            this.rPercentMovementSpeedModPerLevel == other.rPercentMovementSpeedModPerLevel &&
+            this.rPercentTimeDeadMod == other.rPercentTimeDeadMod &&
+            this.rPercentTimeDeadModPerLevel == other.rPercentTimeDeadModPerLevel)
+                return true;
+            return false;
+        }
     }
-    public class GoldDto
+    public class GoldDto : IEquatable<GoldDto>
     {
         public int test { get; set; } // Originally named base.  Can't use it?
         public bool purchasable { get; set; }
         public int sell { get; set; }
         public int total { get; set; }
+
+        public bool Equals(GoldDto other)
+        {
+            if (this.test == other.test &&
+            this.purchasable == other.purchasable &&
+            this.sell == other.sell &&
+            this.total == other.total)
+                return true;
+            return false;
+        }
     }
-    public class MetaDataDto
+    public class MetaDataDto : IEquatable<MetaDataDto>
     {
         public bool isRune { get; set; }
         public string tier { get; set; }
         public string type { get; set; }
+
+        public bool Equals(MetaDataDto other)
+        {
+            if (this.isRune == other.isRune &&
+            this.tier == other.tier &&
+            this.type == other.type)
+                return true;
+            return false;
+        }
     }
-    public class SpellVarsDto
+    public class SpellVarsDto : IEquatable<SpellVarsDto>
     {
         public List<double> coeff { get; set; }
         public string dyn { get; set; }
         public string key { get; set; }
         public string link { get; set; }
         public string ranksWith { get; set; }
+
+        public bool Equals(SpellVarsDto other)
+        {
+            if (this.coeff == other.coeff &&
+            this.dyn == other.dyn &&
+            this.key == other.key &&
+            this.link == other.link &&
+            this.ranksWith == other.ranksWith)
+                return true;
+            return false;
+        }
     }
-    public class ImageDto
+    public class ImageDto : IEquatable<ImageDto>
     {
         public string full { get; set; }
         public string group { get; set; }
@@ -135,13 +261,26 @@ namespace LeagueApi
         public int w { get; set; }
         public int x { get; set; }
         public int y { get; set; }
+
+        public bool Equals(ImageDto other)
+        {
+            if (this.full == other.full &&
+            this.group == other.group &&
+            this.h == other.h &&
+            this.sprite == other.sprite &&
+            this.w == other.w &&
+            this.x == other.x &&
+            this.y == other.y)
+                return true;
+            return false;
+        }
     }
     #endregion
 
     // Champion v1.2
     #region Championv1.2
     // Champion
-    public class ChampionListDto
+    public class ChampionListDto : IEquatable<ChampionListDto>
     {
         public List<ChampionDto> champions { get; set; }
 
@@ -150,8 +289,20 @@ namespace LeagueApi
         public Dictionary<string, string> keys { get; set; }
         public string type { get; set; }
         public string version { get; set; }
+
+        public bool Equals(ChampionListDto other)
+        {
+            if (this.champions == other.champions &&
+            this.data == other.data &&
+            this.format == other.format &&
+            this.keys == other.keys &&
+            this.type == other.type &&
+            this.version == other.version)
+                return true;
+            return false;
+        }
     }
-    public class ChampionDto
+    public class ChampionDto : IEquatable<ChampionDto>
     {
         public bool active { get; set; }
         public bool botEnabled { get; set; }
@@ -176,12 +327,40 @@ namespace LeagueApi
         public StatsDto stats { get; set; }
         public List<string> tags { get; set; }
         public string title { get; set; }
+
+        public bool Equals(ChampionDto other)
+        {
+            if (this.active == other.active &&
+            this.botEnabled == other.botEnabled &&
+            this.botMmEnabled == other.botMmEnabled &&
+            this.freeToPlay == other.freeToPlay &&
+            this.id == other.id &&
+            this.rankedPlayEnabled == other.rankedPlayEnabled &&
+            this.allytips == other.allytips &&
+            this.blurb == other.blurb &&
+            this.enemytips == other.enemytips &&
+            this.image == other.image &&
+            this.info == other.info &&
+            this.key == other.key &&
+            this.lore == other.lore &&
+            this.name == other.name &&
+            this.partype == other.partype &&
+            this.passive == other.passive &&
+            this.recommended == other.recommended &&
+            this.skins == other.skins &&
+            this.spells == other.spells &&
+            this.stats == other.stats &&
+            this.tags == other.tags &&
+            this.title == other.title)
+                return true;
+            return false;
+        }
     }
     #endregion
 
     // Current-game v1.0
     #region Current game v1.0
-    public class CurrentGameInfo
+    public class CurrentGameInfo : IEquatable<CurrentGameInfo>
     {
         public List<BannedChampion> bannedChampions { get; set; }
         public long gameId { get; set; }
@@ -194,9 +373,26 @@ namespace LeagueApi
         public Observer observers { get; set; }
         public List<CurrentGameParticipant> participants { get; set; }
         public string platformId { get; set; }
+
+        public bool Equals(CurrentGameInfo other)
+        {
+            if (this.bannedChampions == other.bannedChampions &&
+            this.gameId == other.gameId &&
+            this.gameLength == other.gameLength &&
+            this.gameMode == other.gameMode &&
+            this.gameQueueConfigId == other.gameQueueConfigId &&
+            this.gameStartTime == other.gameStartTime &&
+            this.gameType == other.gameType &&
+            this.mapId == other.mapId &&
+            this.observers == other.observers &&
+            this.participants == other.participants &&
+            this.platformId == other.platformId)
+                return true;
+            return false;
+        }
     }
 
-    public class CurrentGameParticipant
+    public class CurrentGameParticipant : IEquatable<CurrentGameParticipant>
     {
         public bool bot { get; set; }
         public long championId { get; set; }
@@ -208,17 +404,41 @@ namespace LeagueApi
         public long summonerId { get; set; }
         public string summonerName { get; set; }
         public long teamId { get; set; }
+
+        public bool Equals(CurrentGameParticipant other)
+        {
+            if (this.bot == other.bot &&
+            this.championId == other.championId &&
+            this.masteries == other.masteries &&
+            this.profileIconId == other.profileIconId &&
+            this.runes == other.runes &&
+            this.spell1Id == other.spell1Id &&
+            this.spell2Id == other.spell2Id &&
+            this.summonerId == other.summonerId &&
+            this.summonerName == other.summonerName &&
+            this.teamId == other.teamId)
+                return true;
+            return false;
+        }
     }
     #endregion
 
     // Featured Games v1.0
     #region Featured games v1.0
-    public class FeaturedGames
+    public class FeaturedGames : IEquatable<FeaturedGames>
     {
         public long clientRefreshInterval { get; set; }
         public List<FeaturedGameInfo> gameList { get; set; }
+
+        public bool Equals(FeaturedGames other)
+        {
+            if (this.clientRefreshInterval == other.clientRefreshInterval &&
+            this.gameList == other.gameList)
+                return true;
+            return false;
+        }
     }
-    public class FeaturedGameInfo
+    public class FeaturedGameInfo : IEquatable<FeaturedGameInfo>
     {
         public List<BannedChampion> bannedChampions { get; set; }
         public long gameId { get; set; }
@@ -231,17 +451,43 @@ namespace LeagueApi
         public Observer observers { get; set; }
         public List<CurrentGameParticipant> participants { get; set; }
         public string platformId { get; set; }
+
+        public bool Equals(FeaturedGameInfo other)
+        {
+            if (this.bannedChampions == other.bannedChampions &&
+            this.gameId == other.gameId &&
+            this.gameLength == other.gameLength &&
+            this.gameMode == other.gameMode &&
+            this.gameQueueConfigId == other.gameQueueConfigId &&
+            this.gameStartTime == other.gameStartTime &&
+            this.gameType == other.gameType &&
+            this.mapId == other.mapId &&
+            this.observers == other.observers &&
+            this.participants == other.participants &&
+            this.platformId == other.platformId)
+                return true;
+            return false;
+        }
     }
+
     #endregion
 
     // Game v1.3
     #region Game v1.3
-    public class RecentGamesDto
+    public class RecentGamesDto : IEquatable<RecentGamesDto>
     {
         public HashSet<GameDto> games { get; set; }
         public long summonerId { get; set; }
+
+        public bool Equals(RecentGamesDto other)
+        {
+            if (this.games == other.games &&
+            this.summonerId == other.summonerId)
+                return true;
+            return false;
+        }
     }
-    public class GameDto
+    public class GameDto : IEquatable<GameDto>
     {
         public int championId { get; set; }
         public long createDate { get; set; }
@@ -258,14 +504,44 @@ namespace LeagueApi
         public RawStatsDto stats { get; set; }
         public string subType { get; set; }
         public int teamId { get; set; }
+
+        public bool Equals(GameDto other)
+        {
+            if (this.championId == other.championId &&
+            this.createDate == other.createDate &&
+            this.fellowPlayers == other.fellowPlayers &&
+            this.gameId == other.gameId &&
+            this.gameMode == other.gameMode &&
+            this.gameType == other.gameType &&
+            this.invalid == other.invalid &&
+            this.ipEarned == other.ipEarned &&
+            this.level == other.level &&
+            this.mapId == other.mapId &&
+            this.spell1 == other.spell1 &&
+            this.spell2 == other.spell2 &&
+            this.stats == other.stats &&
+            this.subType == other.subType &&
+            this.teamId == other.teamId)
+                return true;
+            return false;
+        }
     }
-    public class PlayerDto
+    public class PlayerDto : IEquatable<PlayerDto>
     {
         public int championId { get; set; }
         public long summonerId { get; set; }
         public int teamId { get; set; }
+
+        public bool Equals(PlayerDto other)
+        {
+            if (this.championId == other.championId &&
+            this.summonerId == other.summonerId &&
+            this.teamId == other.teamId)
+                return true;
+            return false;
+        }
     }
-    public class RawStatsDto
+    public class RawStatsDto : IEquatable<RawStatsDto>
     {
         public int assists { get; set; }
         public int barracksKilled { get; set; }
@@ -345,6 +621,90 @@ namespace LeagueApi
         public int wardKilled { get; set; }
         public int wardPlaced { get; set; }
         public bool win { get; set; }
+
+        public bool Equals(RawStatsDto other)
+        {
+            if (this.assists == other.assists &&
+            this.barracksKilled == other.barracksKilled &&
+            this.championsKilled == other.championsKilled &&
+            this.combatPlayerScore == other.combatPlayerScore &&
+            this.consumablesPurchased == other.consumablesPurchased &&
+            this.damageDealtPlayer == other.damageDealtPlayer &&
+            this.doubleKills == other.doubleKills &&
+            this.firstBlood == other.firstBlood &&
+            this.gold == other.gold &&
+            this.goldEarned == other.goldEarned &&
+            this.goldSpent == other.goldSpent &&
+            this.item0 == other.item0 &&
+            this.item1 == other.item1 &&
+            this.item2 == other.item2 &&
+            this.item3 == other.item3 &&
+            this.item4 == other.item4 &&
+            this.item5 == other.item5 &&
+            this.item6 == other.item6 &&
+            this.itemsPurchased == other.itemsPurchased &&
+            this.killingSprees == other.killingSprees &&
+            this.largestCriticalStrike == other.largestCriticalStrike &&
+            this.largestKillingSpree == other.largestKillingSpree &&
+            this.largestMultiKill == other.largestMultiKill &&
+            this.legendaryItemsCreated == other.legendaryItemsCreated &&
+            this.level == other.level &&
+            this.magicDamageDealtPlayer == other.magicDamageDealtPlayer &&
+            this.magicDamageDealtToChampions == other.magicDamageDealtToChampions &&
+            this.magicDamageTaken == other.magicDamageTaken &&
+            this.minionsDenied == other.minionsDenied &&
+            this.minionsKilled == other.minionsKilled &&
+            this.neutralMinionsKilled == other.neutralMinionsKilled &&
+            this.neutralMinionsKilledEnemyJungle == other.neutralMinionsKilledEnemyJungle &&
+            this.neutralMinionsKilledYourJungle == other.neutralMinionsKilledYourJungle &&
+            this.nexusKilled == other.nexusKilled &&
+            this.nodeCapture == other.nodeCapture &&
+            this.nodeCaptureAssist == other.nodeCaptureAssist &&
+            this.nodeNeutralize == other.nodeNeutralize &&
+            this.nodeNeutralizeAssist == other.nodeNeutralizeAssist &&
+            this.numDeaths == other.numDeaths &&
+            this.numItemsBought == other.numItemsBought &&
+            this.objectivePlayerScore == other.objectivePlayerScore &&
+            this.pentaKills == other.pentaKills &&
+            this.physicalDamageDealtPlayer == other.physicalDamageDealtPlayer &&
+            this.physicalDamageDealtToChampions == other.physicalDamageDealtToChampions &&
+            this.physicalDamageTaken == other.physicalDamageTaken &&
+            this.playerPosition == other.playerPosition &&
+            this.playerRole == other.playerRole &&
+            this.quadraKills == other.quadraKills &&
+            this.sightWardsBought == other.sightWardsBought &&
+            this.spell1Cast == other.spell1Cast &&
+            this.spell2Cast == other.spell2Cast &&
+            this.spell3Cast == other.spell3Cast &&
+            this.spell4Cast == other.spell4Cast &&
+            this.summonSpell1Cast == other.summonSpell1Cast &&
+            this.summonSpell2Cast == other.summonSpell2Cast &&
+            this.superMonsterKilled == other.superMonsterKilled &&
+            this.team == other.team &&
+            this.teamObjective == other.teamObjective &&
+            this.timePlayed == other.timePlayed &&
+            this.totalDamageDealt == other.totalDamageDealt &&
+            this.totalDamageDealtToChampions == other.totalDamageDealtToChampions &&
+            this.totalDamageTaken == other.totalDamageTaken &&
+            this.totalHeal == other.totalHeal &&
+            this.totalPlayerScore == other.totalPlayerScore &&
+            this.totalScoreRank == other.totalScoreRank &&
+            this.totalTimeCrowdControlDealt == other.totalTimeCrowdControlDealt &&
+            this.totalUnitsHealed == other.totalUnitsHealed &&
+            this.tripleKills == other.tripleKills &&
+            this.trueDamageDealtPlayer == other.trueDamageDealtPlayer &&
+            this.trueDamageDealtToChampions == other.trueDamageDealtToChampions &&
+            this.trueDamageTaken == other.trueDamageTaken &&
+            this.turretsKilled == other.turretsKilled &&
+            this.unrealKills == other.unrealKills &&
+            this.victoryPoTotal == other.victoryPoTotal &&
+            this.visionWardsBought == other.visionWardsBought &&
+            this.wardKilled == other.wardKilled &&
+            this.wardPlaced == other.wardPlaced &&
+            this.win == other.win)
+                return true;
+            return false;
+        }
     }
     #endregion
 
@@ -353,7 +713,7 @@ namespace LeagueApi
     #region Champion
     // ChampionListDto in Championv1.2
     // ChampionDto in Championv1.2
-    public class ChampionSpellDto
+    public class ChampionSpellDto : IEquatable<ChampionSpellDto>
     {
         public List<ImageDto> altimages { get; set; }
         public List<double> cooldown { get; set; }
@@ -376,22 +736,69 @@ namespace LeagueApi
         public string sanitizedTooltip { get; set; }
         public string tooltip { get; set; }
         public List<SpellVarsDto> vars { get; set; }
+
+        public bool Equals(ChampionSpellDto other)
+        {
+            if (this.altimages == other.altimages &&
+            this.cooldown == other.cooldown &&
+            this.cooldownBurn == other.cooldownBurn &&
+            this.cost == other.cost &&
+            this.costBurn == other.costBurn &&
+            this.costType == other.costType &&
+            this.description == other.description &&
+            this.effect == other.effect &&
+            this.effectBurn == other.effectBurn &&
+            this.image == other.image &&
+            this.key == other.key &&
+            this.leveltip == other.leveltip &&
+            this.maxrank == other.maxrank &&
+            this.name == other.name &&
+            this.range == other.range &&
+            this.rangeBurn == other.rangeBurn &&
+            this.resource == other.resource &&
+            this.sanitizedDescription == other.sanitizedDescription &&
+            this.sanitizedTooltip == other.sanitizedTooltip &&
+            this.tooltip == other.tooltip &&
+            this.vars == other.vars)
+                return true;
+            return false;
+        }
     }
-    public class InfoDto
+    public class InfoDto : IEquatable<InfoDto>
     {
         public int attack { get; set; }
         public int defense { get; set; }
         public int difficulty { get; set; }
         public int magic { get; set; }
+
+        public bool Equals(InfoDto other)
+        {
+            if (this.attack == other.attack &&
+            this.defense == other.defense &&
+            this.difficulty == other.difficulty &&
+            this.magic == other.magic)
+                return true;
+            return false;
+        }
     }
-    public class PassiveDto
+    public class PassiveDto : IEquatable<PassiveDto>
     {
         public string description { get; set; }
         public ImageDto image { get; set; }
         public string name { get; set; }
         public string sanitizedDescription { get; set; }
+
+        public bool Equals(PassiveDto other)
+        {
+            if (this.description == other.description &&
+            this.image == other.image &&
+            this.name == other.name &&
+            this.sanitizedDescription == other.sanitizedDescription)
+                return true;
+            return false;
+        }
     }
-    public class RecommendedDto
+    public class RecommendedDto : IEquatable<RecommendedDto>
     {
         public List<BlockDto> blocks { get; set; }
         public string champion { get; set; }
@@ -400,14 +807,36 @@ namespace LeagueApi
         public bool priority { get; set; }
         public string title { get; set; }
         public string type { get; set; }
+
+        public bool Equals(RecommendedDto other)
+        {
+            if (this.blocks == other.blocks &&
+            this.champion == other.champion &&
+            this.map == other.map &&
+            this.mode == other.mode &&
+            this.priority == other.priority &&
+            this.title == other.title &&
+            this.type == other.type)
+                return true;
+            return false;
+        }
     }
-    public class SkinDto
+    public class SkinDto : IEquatable<SkinDto>
     {
         public int id { get; set; }
         public string name { get; set; }
         public int num { get; set; }
+
+        public bool Equals(SkinDto other)
+        {
+            if (this.id == other.id &&
+            this.name == other.name &&
+            this.num == other.num)
+                return true;
+            return false;
+        }
     }
-    public class StatsDto
+    public class StatsDto : IEquatable<StatsDto>
     {
         public double armor { get; set; }
         public double armorperlevel { get; set; }
@@ -429,21 +858,64 @@ namespace LeagueApi
         public double mpregenperlevel { get; set; }
         public double spellblock { get; set; }
         public double spellblockperlevel { get; set; }
+
+        public bool Equals(StatsDto other)
+        {
+            if (this.armor == other.armor &&
+            this.armorperlevel == other.armorperlevel &&
+            this.attackdamage == other.attackdamage &&
+            this.attackdamageperlevel == other.attackdamageperlevel &&
+            this.attackrange == other.attackrange &&
+            this.attackspeedoffset == other.attackspeedoffset &&
+            this.attackspeedperlevel == other.attackspeedperlevel &&
+            this.crit == other.crit &&
+            this.critperlevel == other.critperlevel &&
+            this.hp == other.hp &&
+            this.hpperlevel == other.hpperlevel &&
+            this.hpregen == other.hpregen &&
+            this.hpregenperlevel == other.hpregenperlevel &&
+            this.movespeed == other.movespeed &&
+            this.mp == other.mp &&
+            this.mpperlevel == other.mpperlevel &&
+            this.mpregen == other.mpregen &&
+            this.mpregenperlevel == other.mpregenperlevel &&
+            this.spellblock == other.spellblock &&
+            this.spellblockperlevel == other.spellblockperlevel)
+                return true;
+            return false;
+        }
     }
-    public class BlockDto
+    public class BlockDto : IEquatable<BlockDto>
     {
         public List<BlockItemDto> items { get; set; }
         public bool recMath { get; set; }
         public string type { get; set; }
+
+        public bool Equals(BlockDto other)
+        {
+            if (this.items == other.items &&
+            this.recMath == other.recMath &&
+            this.type == other.type)
+                return true;
+            return false;
+        }
     }
-    public class BlockItemDto
+    public class BlockItemDto : IEquatable<BlockItemDto>
     {
         public int count { get; set; }
         public int id { get; set; }
+
+        public bool Equals(BlockItemDto other)
+        {
+            if (this.count == other.count &&
+            this.id == other.id)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region Items
-    public class ItemListDto
+    public class ItemListDto : IEquatable<ItemListDto>
     {
         public BasicDataDto basic { get; set; }
         public Dictionary<string, ItemDto> data { get; set; }
@@ -451,8 +923,20 @@ namespace LeagueApi
         public List<ItemTreeDto> tree { get; set; }
         public string type { get; set; }
         public string version { get; set; }
+
+        public bool Equals(ItemListDto other)
+        {
+            if (this.basic == other.basic &&
+            this.data == other.data &&
+            this.groups == other.groups &&
+            this.tree == other.tree &&
+            this.type == other.type &&
+            this.version == other.version)
+                return true;
+            return false;
+        }
     }
-    public class BasicDataDto
+    public class BasicDataDto : IEquatable<BasicDataDto>
     {
         public string colloq { get; set; }
         public bool consumeOnFull { get; set; }
@@ -477,13 +961,50 @@ namespace LeagueApi
         public int stacks { get; set; }
         public BasicDataStatsDto stats { get; set; }
         public List<string> tags { get; set; }
+
+        public bool Equals(BasicDataDto other)
+        {
+            if (this.colloq == other.colloq &&
+            this.consumeOnFull == other.consumeOnFull &&
+            this.consumed == other.consumed &&
+            this.depth == other.depth &&
+            this.description == other.description &&
+            this.from == other.from &&
+            this.gold == other.gold &&
+            this.group == other.group &&
+            this.hideFromAll == other.hideFromAll &&
+            this.id == other.id &&
+            this.image == other.image &&
+            this.inStore == other.inStore &&
+            this.into == other.into &&
+            this.maps == other.maps &&
+            this.name == other.name &&
+            this.plaintext == other.plaintext &&
+            this.requiredChampion == other.requiredChampion &&
+            this.rune == other.rune &&
+            this.sanitizedDescription == other.sanitizedDescription &&
+            this.specialRecipe == other.specialRecipe &&
+            this.stacks == other.stacks &&
+            this.stats == other.stats &&
+            this.tags == other.tags)
+                return true;
+            return false;
+        }
     }
-    public class GroupDto
+    public class GroupDto : IEquatable<GroupDto>
     {
         public string MaxGroupOwnable { get; set; }
         public string key { get; set; }
+
+        public bool Equals(GroupDto other)
+        {
+            if (this.MaxGroupOwnable == other.MaxGroupOwnable &&
+            this.key == other.key)
+                return true;
+            return false;
+        }
     }
-    public class ItemDto
+    public class ItemDto : IEquatable<ItemDto>
     {
         public string colloq { get; set; }
         public bool consumeOnFull { get; set; }
@@ -509,22 +1030,70 @@ namespace LeagueApi
         public int stacks { get; set; }
         public BasicDataStatsDto stats { get; set; }
         public List<string> tags { get; set; }
+
+        public bool Equals(ItemDto other)
+        {
+            if (this.colloq == other.colloq &&
+            this.consumeOnFull == other.consumeOnFull &&
+            this.consumed == other.consumed &&
+            this.depth == other.depth &&
+            this.description == other.description &&
+            this.effect == other.effect &&
+            this.from == other.from &&
+            this.gold == other.gold &&
+            this.group == other.group &&
+            this.hideFromAll == other.hideFromAll &&
+            this.id == other.id &&
+            this.image == other.image &&
+            this.inStore == other.inStore &&
+            this.into == other.into &&
+            this.maps == other.maps &&
+            this.name == other.name &&
+            this.plaintext == other.plaintext &&
+            this.requiredChampion == other.requiredChampion &&
+            this.rune == other.rune &&
+            this.sanitizedDescription == other.sanitizedDescription &&
+            this.specialRecipe == other.specialRecipe &&
+            this.stacks == other.stacks &&
+            this.stats == other.stats &&
+            this.tags == other.tags)
+                return true;
+            return false;
+        }
     }
-    public class ItemTreeDto
+    public class ItemTreeDto : IEquatable<ItemTreeDto>
     {
         public string header { get; set; }
         public List<string> tags { get; set; }
+
+        public bool Equals(ItemTreeDto other)
+        {
+            if (this.header == other.header &&
+            this.tags == other.tags)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region Masteries
-    public class MasteryListDto
+    public class MasteryListDto : IEquatable<MasteryListDto>
     {
         public Dictionary<string, MasteryDto> data { get; set; }
         public MasteryTreeDto tree { get; set; }
         public string type { get; set; }
         public string version { get; set; }
+
+        public bool Equals(MasteryListDto other)
+        {
+            if (this.data == other.data &&
+            this.tree == other.tree &&
+            this.type == other.type &&
+            this.version == other.version)
+                return true;
+            return false;
+        }
     }
-    public class MasteryDto
+    public class MasteryDto : IEquatable<MasteryDto>
     {
         public List<string> description { get; set; }
         public int id { get; set; }
@@ -535,33 +1104,82 @@ namespace LeagueApi
         public int rank { get; set; }
         public int ranks { get; set; }
         public List<string> sanitizedDescription { get; set; }
+
+        public bool Equals(MasteryDto other)
+        {
+            if (this.description == other.description &&
+            this.id == other.id &&
+            this.image == other.image &&
+            this.masteryTree == other.masteryTree &&
+            this.name == other.name &&
+            this.prereq == other.prereq &&
+            this.rank == other.rank &&
+            this.ranks == other.ranks &&
+            this.sanitizedDescription == other.sanitizedDescription)
+                return true;
+            return false;
+        }
     }
-    public class MasteryTreeDto
+    public class MasteryTreeDto : IEquatable<MasteryTreeDto>
     {
         public List<MasteryTreeListDto> Cunning { get; set; }
         public List<MasteryTreeListDto> Ferocity { get; set; }
         public List<MasteryTreeListDto> Resolve { get; set; }
+
+        public bool Equals(MasteryTreeDto other)
+        {
+            if (this.Cunning == other.Cunning &&
+            this.Ferocity == other.Ferocity &&
+            this.Resolve == other.Resolve)
+                return true;
+            return false;
+        }
     }
     // ImageDto in static champion
-    public class MasteryTreeListDto
+    public class MasteryTreeListDto : IEquatable<MasteryTreeListDto>
     {
         public List<MasteryTreeItemDto> masteryTreeItems { get; set; }
+
+        public bool Equals(MasteryTreeListDto other)
+        {
+            if (this.masteryTreeItems == other.masteryTreeItems)
+                return true;
+            return false;
+        }
     }
-    public class MasteryTreeItemDto
+    public class MasteryTreeItemDto : IEquatable<MasteryTreeItemDto>
     {
         public int masteryId { get; set; }
         public string prereq { get; set; }
+
+        public bool Equals(MasteryTreeItemDto other)
+        {
+            if (this.masteryId == other.masteryId &&
+            this.prereq == other.prereq)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region Runes
-    public class RuneListDto
+    public class RuneListDto : IEquatable<RuneListDto>
     {
         public BasicDataDto basic { get; set; }
         public Dictionary<string, RuneDto> data { get; set; }
         public string type { get; set; }
         public string version { get; set; }
+
+        public bool Equals(RuneListDto other)
+        {
+            if (this.basic == other.basic &&
+            this.data == other.data &&
+            this.type == other.type &&
+            this.version == other.version)
+                return true;
+            return false;
+        }
     }
-    public class RuneDto
+    public class RuneDto : IEquatable<RuneDto>
     {
         public string colloq { get; set; }
         public bool consumeOnFull { get; set; }
@@ -585,16 +1203,53 @@ namespace LeagueApi
         public int stacks { get; set; }
         public BasicDataStatsDto stats { get; set; }
         public List<string> tags { get; set; }
+
+        public bool Equals(RuneDto other)
+        {
+            if (this.colloq == other.colloq &&
+            this.consumeOnFull == other.consumeOnFull &&
+            this.consumed == other.consumed &&
+            this.depth == other.depth &&
+            this.description == other.description &&
+            this.from == other.from &&
+            this.group == other.group &&
+            this.hideFromAll == other.hideFromAll &&
+            this.id == other.id &&
+            this.image == other.image &&
+            this.inStore == other.inStore &&
+            this.into == other.into &&
+            this.maps == other.maps &&
+            this.name == other.name &&
+            this.plaintext == other.plaintext &&
+            this.requiredChampion == other.requiredChampion &&
+            this.rune == other.rune &&
+            this.sanitizedDescription == other.sanitizedDescription &&
+            this.specialRecipe == other.specialRecipe &&
+            this.stacks == other.stacks &&
+            this.stats == other.stats &&
+            this.tags == other.tags)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region SummonerSpell
-    public class SummonerSpellListDto
+    public class SummonerSpellListDto : IEquatable<SummonerSpellListDto>
     {
         public Dictionary<string, SummonerSpellDto> data { get; set; }
         public string type { get; set; }
         public string version { get; set; }
+
+        public bool Equals(SummonerSpellListDto other)
+        {
+            if (this.data == other.data &&
+            this.type == other.type &&
+            this.version == other.version)
+                return true;
+            return false;
+        }
     }
-    public class SummonerSpellDto
+    public class SummonerSpellDto : IEquatable<SummonerSpellDto>
     {
         public List<double> cooldown { get; set; }
         public string cooldownBurn { get; set; }
@@ -619,18 +1274,56 @@ namespace LeagueApi
         public int summonerLevel { get; set; }
         public string tooltip { get; set; }
         public List<SpellVarsDto> vars { get; set; }
+
+        public bool Equals(SummonerSpellDto other)
+        {
+            if (this.cooldown == other.cooldown &&
+            this.cooldownBurn == other.cooldownBurn &&
+            this.cost == other.cost &&
+            this.costBurn == other.costBurn &&
+            this.costType == other.costType &&
+            this.description == other.description &&
+            this.effect == other.effect &&
+            this.effectBurn == other.effectBurn &&
+            this.id == other.id &&
+            this.image == other.image &&
+            this.key == other.key &&
+            this.leveltip == other.leveltip &&
+            this.maxrank == other.maxrank &&
+            this.modes == other.modes &&
+            this.name == other.name &&
+            this.range == other.range &&
+            this.rangeBurn == other.rangeBurn &&
+            this.resource == other.resource &&
+            this.sanitizedDescription == other.sanitizedDescription &&
+            this.sanitizedTooltip == other.sanitizedTooltip &&
+            this.summonerLevel == other.summonerLevel &&
+            this.tooltip == other.tooltip &&
+            this.vars == other.vars)
+                return true;
+            return false;
+        }
     }
-    public class LevelTipDto
+    public class LevelTipDto : IEquatable<LevelTipDto>
     {
         public List<string> effect { get; set; }
         public List<string> label { get; set; }
+
+        public bool Equals(LevelTipDto other)
+        {
+            if (this.effect == other.effect &&
+            this.label == other.label)
+                return true;
+            return false;
+        }
     }
     #endregion
+
     #endregion
 
     // status v1.0
     #region status v1.0
-    public class ShardStatus
+    public class ShardStatus : IEquatable<ShardStatus>
     {
         public string hostname { get; set; }
         public List<string> locales { get; set; }
@@ -638,22 +1331,54 @@ namespace LeagueApi
         public string region_tag { get; set; }
         public List<Service> services { get; set; }
         public string slug { get; set; }
+
+        public bool Equals(ShardStatus other)
+        {
+            if (this.hostname == other.hostname &&
+            this.locales == other.locales &&
+            this.name == other.name &&
+            this.region_tag == other.region_tag &&
+            this.services == other.services &&
+            this.slug == other.slug)
+                return true;
+            return false;
+        }
     }
-    public class Service
+    public class Service : IEquatable<Service>
     {
         public List<Incident> incidents { get; set; }
         public string name { get; set; }
         public string slug { get; set; }
         public string status { get; set; }
+
+        public bool Equals(Service other)
+        {
+            if (this.incidents == other.incidents &&
+            this.name == other.name &&
+            this.slug == other.slug &&
+            this.status == other.status)
+                return true;
+            return false;
+        }
     }
-    public class Incident
+    public class Incident : IEquatable<Incident>
     {
         public bool active { get; set; }
         public string created_at { get; set; }
         public long id { get; set; }
         public List<Message> updates { get; set; }
+
+        public bool Equals(Incident other)
+        {
+            if (this.active == other.active &&
+            this.created_at == other.created_at &&
+            this.id == other.id &&
+            this.updates == other.updates)
+                return true;
+            return false;
+        }
     }
-    public class Message
+    public class Message : IEquatable<Message>
     {
         public string author { get; set; }
         public string content { get; set; }
@@ -662,18 +1387,40 @@ namespace LeagueApi
         public string severity { get; set; }
         public List<Translation> translations { get; set; }
         public string updated_at { get; set; }
+
+        public bool Equals(Message other)
+        {
+            if (this.author == other.author &&
+            this.content == other.content &&
+            this.created_at == other.created_at &&
+            this.id == other.id &&
+            this.severity == other.severity &&
+            this.translations == other.translations &&
+            this.updated_at == other.updated_at)
+                return true;
+            return false;
+        }
     }
-    public class Translation
+    public class Translation : IEquatable<Translation>
     {
         public string content { get; set; }
         public string locale { get; set; }
         public string updated_at { get; set; }
+
+        public bool Equals(Translation other)
+        {
+            if (this.content == other.content &&
+            this.locale == other.locale &&
+            this.updated_at == other.updated_at)
+                return true;
+            return false;
+        }
     }
     #endregion
 
     // Match v2.2
     #region Match v2.2
-    public class MatchDetail
+    public class MatchDetail : IEquatable<MatchDetail>
     {
         public int mapId { get; set; }
         public long matchCreation { get; set; }
@@ -690,8 +1437,29 @@ namespace LeagueApi
         public string season { get; set; }
         public List<Team> teams { get; set; }
         public Timeline timeline { get; set; }
+
+        public bool Equals(MatchDetail other)
+        {
+            if (this.mapId == other.mapId &&
+            this.matchCreation == other.matchCreation &&
+            this.matchDuration == other.matchDuration &&
+            this.matchId == other.matchId &&
+            this.matchMode == other.matchMode &&
+            this.matchType == other.matchType &&
+            this.matchVersion == other.matchVersion &&
+            this.participantIdentities == other.participantIdentities &&
+            this.participants == other.participants &&
+            this.platformId == other.platformId &&
+            this.queueType == other.queueType &&
+            this.region == other.region &&
+            this.season == other.season &&
+            this.teams == other.teams &&
+            this.timeline == other.timeline)
+                return true;
+            return false;
+        }
     }
-    public class Participant
+    public class Participant : IEquatable<Participant>
     {
         public int championId { get; set; }
         public string highestAchievedSeasonTier { get; set; }
@@ -703,13 +1471,37 @@ namespace LeagueApi
         public ParticipantStats stats { get; set; }
         public int teamId { get; set; }
         public ParticipantTimeline timeline { get; set; }
+
+        public bool Equals(Participant other)
+        {
+            if (this.championId == other.championId &&
+            this.highestAchievedSeasonTier == other.highestAchievedSeasonTier &&
+            this.masteries == other.masteries &&
+            this.participantId == other.participantId &&
+            this.runes == other.runes &&
+            this.spell1Id == other.spell1Id &&
+            this.spell2Id == other.spell2Id &&
+            this.stats == other.stats &&
+            this.teamId == other.teamId &&
+            this.timeline == other.timeline)
+                return true;
+            return false;
+        }
     }
-    public class ParticipantIdentity
+    public class ParticipantIdentity : IEquatable<ParticipantIdentity>
     {
-	    public int participantId { get; set; }
+        public int participantId { get; set; }
         public Player player { get; set; }
+
+        public bool Equals(ParticipantIdentity other)
+        {
+            if (this.participantId == other.participantId &&
+            this.player == other.player)
+                return true;
+            return false;
+        }
     }
-    public class Team
+    public class Team : IEquatable<Team>
     {
         public List<BannedChampion> bans { get; set; }
         public int baronKills { get; set; }
@@ -727,13 +1519,43 @@ namespace LeagueApi
         public int towerKills { get; set; }
         public int vilemawKills { get; set; }
         public bool winner { get; set; }
+
+        public bool Equals(Team other)
+        {
+            if (this.bans == other.bans &&
+            this.baronKills == other.baronKills &&
+            this.dominionVictoryScore == other.dominionVictoryScore &&
+            this.dragonKills == other.dragonKills &&
+            this.firstBaron == other.firstBaron &&
+            this.firstBlood == other.firstBlood &&
+            this.firstDragon == other.firstDragon &&
+            this.firstInhibitor == other.firstInhibitor &&
+            this.firstRiftHerald == other.firstRiftHerald &&
+            this.firstTower == other.firstTower &&
+            this.inhibitorKills == other.inhibitorKills &&
+            this.riftHeraldKills == other.riftHeraldKills &&
+            this.teamId == other.teamId &&
+            this.towerKills == other.towerKills &&
+            this.vilemawKills == other.vilemawKills &&
+            this.winner == other.winner)
+                return true;
+            return false;
+        }
     }
-    public class Timeline
+    public class Timeline : IEquatable<Timeline>
     {
-	    public long frameInterval { get; set; }
+        public long frameInterval { get; set; }
         public List<Frame> frames { get; set; }
+
+        public bool Equals(Timeline other)
+        {
+            if (this.frameInterval == other.frameInterval &&
+            this.frames == other.frames)
+                return true;
+            return false;
+        }
     }
-    public class ParticipantStats
+    public class ParticipantStats : IEquatable<ParticipantStats>
     {
         public long assists { get; set; }
         public long champLevel { get; set; }
@@ -798,8 +1620,77 @@ namespace LeagueApi
         public long wardsKilled { get; set; }
         public long wardsPlaced { get; set; }
         public bool winner { get; set; }
+
+        public bool Equals(ParticipantStats other)
+        {
+            if (this.assists == other.assists &&
+            this.champLevel == other.champLevel &&
+            this.combatPlayerScore == other.combatPlayerScore &&
+            this.deaths == other.deaths &&
+            this.doubleKills == other.doubleKills &&
+            this.firstBloodAssist == other.firstBloodAssist &&
+            this.firstBloodKill == other.firstBloodKill &&
+            this.firstInhibitorAssist == other.firstInhibitorAssist &&
+            this.firstInhibitorKill == other.firstInhibitorKill &&
+            this.firstTowerAssist == other.firstTowerAssist &&
+            this.firstTowerKill == other.firstTowerKill &&
+            this.goldEarned == other.goldEarned &&
+            this.goldSpent == other.goldSpent &&
+            this.inhibitorKills == other.inhibitorKills &&
+            this.item0 == other.item0 &&
+            this.item1 == other.item1 &&
+            this.item2 == other.item2 &&
+            this.item3 == other.item3 &&
+            this.item4 == other.item4 &&
+            this.item5 == other.item5 &&
+            this.item6 == other.item6 &&
+            this.killingSprees == other.killingSprees &&
+            this.kills == other.kills &&
+            this.largestCriticalStrike == other.largestCriticalStrike &&
+            this.largestKillingSpree == other.largestKillingSpree &&
+            this.largestMultiKill == other.largestMultiKill &&
+            this.magicDamageDealt == other.magicDamageDealt &&
+            this.magicDamageDealtToChampions == other.magicDamageDealtToChampions &&
+            this.magicDamageTaken == other.magicDamageTaken &&
+            this.minionsKilled == other.minionsKilled &&
+            this.neutralMinionsKilled == other.neutralMinionsKilled &&
+            this.neutralMinionsKilledEnemyJungle == other.neutralMinionsKilledEnemyJungle &&
+            this.neutralMinionsKilledTeamJungle == other.neutralMinionsKilledTeamJungle &&
+            this.nodeCapture == other.nodeCapture &&
+            this.nodeCaptureAssist == other.nodeCaptureAssist &&
+            this.nodeNeutralize == other.nodeNeutralize &&
+            this.nodeNeutralizeAssist == other.nodeNeutralizeAssist &&
+            this.objectivePlayerScore == other.objectivePlayerScore &&
+            this.pentaKills == other.pentaKills &&
+            this.physicalDamageDealt == other.physicalDamageDealt &&
+            this.physicalDamageDealtToChampions == other.physicalDamageDealtToChampions &&
+            this.physicalDamageTaken == other.physicalDamageTaken &&
+            this.quadraKills == other.quadraKills &&
+            this.sightWardsBoughtInGame == other.sightWardsBoughtInGame &&
+            this.teamObjective == other.teamObjective &&
+            this.totalDamageDealt == other.totalDamageDealt &&
+            this.totalDamageDealtToChampions == other.totalDamageDealtToChampions &&
+            this.totalDamageTaken == other.totalDamageTaken &&
+            this.totalHeal == other.totalHeal &&
+            this.totalPlayerScore == other.totalPlayerScore &&
+            this.totalScoreRank == other.totalScoreRank &&
+            this.totalTimeCrowdControlDealt == other.totalTimeCrowdControlDealt &&
+            this.totalUnitsHealed == other.totalUnitsHealed &&
+            this.towerKills == other.towerKills &&
+            this.tripleKills == other.tripleKills &&
+            this.trueDamageDealt == other.trueDamageDealt &&
+            this.trueDamageDealtToChampions == other.trueDamageDealtToChampions &&
+            this.trueDamageTaken == other.trueDamageTaken &&
+            this.unrealKills == other.unrealKills &&
+            this.visionWardsBoughtInGame == other.visionWardsBoughtInGame &&
+            this.wardsKilled == other.wardsKilled &&
+            this.wardsPlaced == other.wardsPlaced &&
+            this.winner == other.winner)
+                return true;
+            return false;
+        }
     }
-    public class ParticipantTimeline
+    public class ParticipantTimeline : IEquatable<ParticipantTimeline>
     {
         public ParticipantTimelineData ancientGolemAssistsPerMinCounts { get; set; }
         public ParticipantTimelineData ancientGolemKillsPerMinCounts { get; set; }
@@ -828,28 +1719,90 @@ namespace LeagueApi
         public ParticipantTimelineData wardsPerMinDeltas { get; set; }
         public ParticipantTimelineData xpDiffPerMinDeltas { get; set; }
         public ParticipantTimelineData xpPerMinDeltas { get; set; }
+
+        public bool Equals(ParticipantTimeline other)
+        {
+            if (this.ancientGolemAssistsPerMinCounts == other.ancientGolemAssistsPerMinCounts &&
+            this.ancientGolemKillsPerMinCounts == other.ancientGolemKillsPerMinCounts &&
+            this.assistedLaneDeathsPerMinDeltas == other.assistedLaneDeathsPerMinDeltas &&
+            this.assistedLaneKillsPerMinDeltas == other.assistedLaneKillsPerMinDeltas &&
+            this.baronAssistsPerMinCounts == other.baronAssistsPerMinCounts &&
+            this.baronKillsPerMinCounts == other.baronKillsPerMinCounts &&
+            this.creepsPerMinDeltas == other.creepsPerMinDeltas &&
+            this.csDiffPerMinDeltas == other.csDiffPerMinDeltas &&
+            this.damageTakenDiffPerMinDeltas == other.damageTakenDiffPerMinDeltas &&
+            this.damageTakenPerMinDeltas == other.damageTakenPerMinDeltas &&
+            this.dragonAssistsPerMinCounts == other.dragonAssistsPerMinCounts &&
+            this.dragonKillsPerMinCounts == other.dragonKillsPerMinCounts &&
+            this.elderLizardAssistsPerMinCounts == other.elderLizardAssistsPerMinCounts &&
+            this.elderLizardKillsPerMinCounts == other.elderLizardKillsPerMinCounts &&
+            this.goldPerMinDeltas == other.goldPerMinDeltas &&
+            this.inhibitorAssistsPerMinCounts == other.inhibitorAssistsPerMinCounts &&
+            this.inhibitorKillsPerMinCounts == other.inhibitorKillsPerMinCounts &&
+            this.lane == other.lane &&
+            this.role == other.role &&
+            this.towerAssistsPerMinCounts == other.towerAssistsPerMinCounts &&
+            this.towerKillsPerMinCounts == other.towerKillsPerMinCounts &&
+            this.towerKillsPerMinDeltas == other.towerKillsPerMinDeltas &&
+            this.vilemawAssistsPerMinCounts == other.vilemawAssistsPerMinCounts &&
+            this.vilemawKillsPerMinCounts == other.vilemawKillsPerMinCounts &&
+            this.wardsPerMinDeltas == other.wardsPerMinDeltas &&
+            this.xpDiffPerMinDeltas == other.xpDiffPerMinDeltas &&
+            this.xpPerMinDeltas == other.xpPerMinDeltas)
+                return true;
+            return false;
+        }
     }
-    public class Player
+    public class Player : IEquatable<Player>
     {
         public string matchHistoryUri { get; set; }
         public int profileIcon { get; set; }
         public long summonerId { get; set; }
         public string summonerName { get; set; }
+
+        public bool Equals(Player other)
+        {
+            if (this.matchHistoryUri == other.matchHistoryUri &&
+            this.profileIcon == other.profileIcon &&
+            this.summonerId == other.summonerId &&
+            this.summonerName == other.summonerName)
+                return true;
+            return false;
+        }
     }
-    public class Frame
+    public class Frame : IEquatable<Frame>
     {
         public List<Event> events { get; set; }
         public Dictionary<string, ParticipantFrame> participantFrames { get; set; }
         public long timestamp { get; set; }
+
+        public bool Equals(Frame other)
+        {
+            if (this.events == other.events &&
+            this.participantFrames == other.participantFrames &&
+            this.timestamp == other.timestamp)
+                return true;
+            return false;
+        }
     }
-    public class ParticipantTimelineData
+    public class ParticipantTimelineData : IEquatable<ParticipantTimelineData>
     {
         public double tenToTwenty { get; set; }
         public double thirtyToEnd { get; set; }
         public double twentyToThirty { get; set; }
         public double zeroToTen { get; set; }
+
+        public bool Equals(ParticipantTimelineData other)
+        {
+            if (this.tenToTwenty == other.tenToTwenty &&
+            this.thirtyToEnd == other.thirtyToEnd &&
+            this.twentyToThirty == other.twentyToThirty &&
+            this.zeroToTen == other.zeroToTen)
+                return true;
+            return false;
+        }
     }
-    public class Event
+    public class Event : IEquatable<Event>
     {
         public string ascendedType { get; set; }
         public List<int> assistingParticipantIds { get; set; }
@@ -872,8 +1825,35 @@ namespace LeagueApi
         public string towerType { get; set; }
         public int victimId { get; set; }
         public string wardType { get; set; }
+
+        public bool Equals(Event other)
+        {
+            if (this.ascendedType == other.ascendedType &&
+            this.assistingParticipantIds == other.assistingParticipantIds &&
+            this.buildingType == other.buildingType &&
+            this.creatorId == other.creatorId &&
+            this.eventType == other.eventType &&
+            this.itemAfter == other.itemAfter &&
+            this.itemBefore == other.itemBefore &&
+            this.itemId == other.itemId &&
+            this.killerId == other.killerId &&
+            this.laneType == other.laneType &&
+            this.levelUpType == other.levelUpType &&
+            this.monsterType == other.monsterType &&
+            this.participantId == other.participantId &&
+            this.pointCaptured == other.pointCaptured &&
+            this.position == other.position &&
+            this.skillSlot == other.skillSlot &&
+            this.teamId == other.teamId &&
+            this.timestamp == other.timestamp &&
+            this.towerType == other.towerType &&
+            this.victimId == other.victimId &&
+            this.wardType == other.wardType)
+                return true;
+            return false;
+        }
     }
-    public class ParticipantFrame
+    public class ParticipantFrame : IEquatable<ParticipantFrame>
     {
         public int currentGold { get; set; }
         public int dominionScore { get; set; }
@@ -885,24 +1865,58 @@ namespace LeagueApi
         public int teamScore { get; set; }
         public int totalGold { get; set; }
         public int xp { get; set; }
+
+        public bool Equals(ParticipantFrame other)
+        {
+            if (this.currentGold == other.currentGold &&
+            this.dominionScore == other.dominionScore &&
+            this.jungleMinionsKilled == other.jungleMinionsKilled &&
+            this.level == other.level &&
+            this.minionsKilled == other.minionsKilled &&
+            this.participantId == other.participantId &&
+            this.position == other.position &&
+            this.teamScore == other.teamScore &&
+            this.totalGold == other.totalGold &&
+            this.xp == other.xp)
+                return true;
+            return false;
+        }
     }
-    public class Position
+    public class Position : IEquatable<Position>
     {
         public int x { get; set; }
         public int y { get; set; }
+
+        public bool Equals(Position other)
+        {
+            if (this.x == other.x &&
+            this.y == other.y)
+                return true;
+            return false;
+        }
     }
     #endregion
 
     // MatchList v2.2
     #region MatchList v2.2
-    public class MatchList
+    public class MatchList : IEquatable<MatchList>
     {
         public int endIndex { get; set; }
         public List<MatchReference> matches { get; set; }
         public int startIndex { get; set; }
         public int totalGames { get; set; }
+
+        public bool Equals(MatchList other)
+        {
+            if (this.endIndex == other.endIndex &&
+            this.matches == other.matches &&
+            this.startIndex == other.startIndex &&
+            this.totalGames == other.totalGames)
+                return true;
+            return false;
+        }
     }
-    public class MatchReference
+    public class MatchReference : IEquatable<MatchReference>
     {
         public long champion { get; set; }
         public string lane { get; set; }
@@ -913,24 +1927,56 @@ namespace LeagueApi
         public string role { get; set; }
         public string season { get; set; }
         public long timestamp { get; set; }
+
+        public bool Equals(MatchReference other)
+        {
+            if (this.champion == other.champion &&
+            this.lane == other.lane &&
+            this.matchId == other.matchId &&
+            this.platformId == other.platformId &&
+            this.queue == other.queue &&
+            this.region == other.region &&
+            this.role == other.role &&
+            this.season == other.season &&
+            this.timestamp == other.timestamp)
+                return true;
+            return false;
+        }
     }
     #endregion
 
     // stats v1.3
     #region stats v1.3
     #region Ranked stats by summoner ID
-    public class RankedStatsDto
+    public class RankedStatsDto : IEquatable<RankedStatsDto>
     {
         public List<ChampionStatsDto> champions { get; set; }
         public long modifyDate { get; set; }
         public long summonerId { get; set; }
+
+        public bool Equals(RankedStatsDto other)
+        {
+            if (this.champions == other.champions &&
+            this.modifyDate == other.modifyDate &&
+            this.summonerId == other.summonerId)
+                return true;
+            return false;
+        }
     }
-    public class ChampionStatsDto
+    public class ChampionStatsDto : IEquatable<ChampionStatsDto>
     {
         public int id { get; set; }
         public AggregatedStatsDto stats { get; set; }
+
+        public bool Equals(ChampionStatsDto other)
+        {
+            if (this.id == other.id &&
+            this.stats == other.stats)
+                return true;
+            return false;
+        }
     }
-    public class AggregatedStatsDto
+    public class AggregatedStatsDto : IEquatable<AggregatedStatsDto>
     {
         public int averageAssists { get; set; }
         public int averageChampionsKilled { get; set; }
@@ -988,21 +2034,102 @@ namespace LeagueApi
         public int totalTripleKills { get; set; }
         public int totalTurretsKilled { get; set; }
         public int totalUnrealKills { get; set; }
+
+        public bool Equals(AggregatedStatsDto other)
+        {
+            if (this.averageAssists == other.averageAssists &&
+            this.averageChampionsKilled == other.averageChampionsKilled &&
+            this.averageCombatPlayerScore == other.averageCombatPlayerScore &&
+            this.averageNodeCapture == other.averageNodeCapture &&
+            this.averageNodeCaptureAssist == other.averageNodeCaptureAssist &&
+            this.averageNodeNeutralize == other.averageNodeNeutralize &&
+            this.averageNodeNeutralizeAssist == other.averageNodeNeutralizeAssist &&
+            this.averageNumDeaths == other.averageNumDeaths &&
+            this.averageObjectivePlayerScore == other.averageObjectivePlayerScore &&
+            this.averageTeamObjective == other.averageTeamObjective &&
+            this.averageTotalPlayerScore == other.averageTotalPlayerScore &&
+            this.botGamesPlayed == other.botGamesPlayed &&
+            this.killingSpree == other.killingSpree &&
+            this.maxAssists == other.maxAssists &&
+            this.maxChampionsKilled == other.maxChampionsKilled &&
+            this.maxCombatPlayerScore == other.maxCombatPlayerScore &&
+            this.maxLargestCriticalStrike == other.maxLargestCriticalStrike &&
+            this.maxLargestKillingSpree == other.maxLargestKillingSpree &&
+            this.maxNodeCapture == other.maxNodeCapture &&
+            this.maxNodeCaptureAssist == other.maxNodeCaptureAssist &&
+            this.maxNodeNeutralize == other.maxNodeNeutralize &&
+            this.maxNodeNeutralizeAssist == other.maxNodeNeutralizeAssist &&
+            this.maxNumDeaths == other.maxNumDeaths &&
+            this.maxObjectivePlayerScore == other.maxObjectivePlayerScore &&
+            this.maxTeamObjective == other.maxTeamObjective &&
+            this.maxTimePlayed == other.maxTimePlayed &&
+            this.maxTimeSpentLiving == other.maxTimeSpentLiving &&
+            this.maxTotalPlayerScore == other.maxTotalPlayerScore &&
+            this.mostChampionKillsPerSession == other.mostChampionKillsPerSession &&
+            this.mostSpellsCast == other.mostSpellsCast &&
+            this.normalGamesPlayed == other.normalGamesPlayed &&
+            this.rankedPremadeGamesPlayed == other.rankedPremadeGamesPlayed &&
+            this.rankedSoloGamesPlayed == other.rankedSoloGamesPlayed &&
+            this.totalAssists == other.totalAssists &&
+            this.totalChampionKills == other.totalChampionKills &&
+            this.totalDamageDealt == other.totalDamageDealt &&
+            this.totalDamageTaken == other.totalDamageTaken &&
+            this.totalDeathsPerSession == other.totalDeathsPerSession &&
+            this.totalDoubleKills == other.totalDoubleKills &&
+            this.totalFirstBlood == other.totalFirstBlood &&
+            this.totalGoldEarned == other.totalGoldEarned &&
+            this.totalHeal == other.totalHeal &&
+            this.totalMagicDamageDealt == other.totalMagicDamageDealt &&
+            this.totalMinionKills == other.totalMinionKills &&
+            this.totalNeutralMinionsKilled == other.totalNeutralMinionsKilled &&
+            this.totalNodeCapture == other.totalNodeCapture &&
+            this.totalNodeNeutralize == other.totalNodeNeutralize &&
+            this.totalPentaKills == other.totalPentaKills &&
+            this.totalPhysicalDamageDealt == other.totalPhysicalDamageDealt &&
+            this.totalQuadraKills == other.totalQuadraKills &&
+            this.totalSessionsLost == other.totalSessionsLost &&
+            this.totalSessionsPlayed == other.totalSessionsPlayed &&
+            this.totalSessionsWon == other.totalSessionsWon &&
+            this.totalTripleKills == other.totalTripleKills &&
+            this.totalTurretsKilled == other.totalTurretsKilled &&
+            this.totalUnrealKills == other.totalUnrealKills)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region Player stats summaries by ID
-    public class PlayerStatsSummaryListDto
+    public class PlayerStatsSummaryListDto : IEquatable<PlayerStatsSummaryListDto>
     {
         public List<PlayerStatsSummaryDto> playerStatSummaries { get; set; }
         public long summonerId { get; set; }
+
+        public bool Equals(PlayerStatsSummaryListDto other)
+        {
+            if (this.playerStatSummaries == other.playerStatSummaries &&
+            this.summonerId == other.summonerId)
+                return true;
+            return false;
+        }
     }
-    public class PlayerStatsSummaryDto
+    public class PlayerStatsSummaryDto : IEquatable<PlayerStatsSummaryDto>
     {
         public AggregatedStatsDto aggregatedStats { get; set; }
         public int losses { get; set; }
         public long modifyDate { get; set; }
         public string playerStatSummaryType { get; set; }
         public int wins { get; set; }
+
+        public bool Equals(PlayerStatsSummaryDto other)
+        {
+            if (this.aggregatedStats == other.aggregatedStats &&
+            this.losses == other.losses &&
+            this.modifyDate == other.modifyDate &&
+            this.playerStatSummaryType == other.playerStatSummaryType &&
+            this.wins == other.wins)
+                return true;
+            return false;
+        }
     }
     #endregion
     #endregion
@@ -1010,46 +2137,101 @@ namespace LeagueApi
     // Summoner v1.4
     #region Summoner v1.4
     #region Summoner info by name
-    public class SummonerDto
+    public class SummonerDto : IEquatable<SummonerDto>
     {
         public long id { get; set; }
         public string name { get; set; }
         public int profileIconId { get; set; }
         public long revisionDate { get; set; }
         public long summonerLevel { get; set; }
+
+        public bool Equals(SummonerDto other)
+        {
+            if (this.id == other.id &&
+            this.name == other.name &&
+            this.profileIconId == other.profileIconId &&
+            this.revisionDate == other.revisionDate &&
+            this.summonerLevel == other.summonerLevel)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region Summoner mastery pages
-    public class MasteryPagesDto
+    public class MasteryPagesDto : IEquatable<MasteryPagesDto>
     {
         public HashSet<MasteryPageDto> pages { get; set; }
         public long summonerId { get; set; }
+
+        public bool Equals(MasteryPagesDto other)
+        {
+            if (this.pages == other.pages &&
+            this.summonerId == other.summonerId)
+                return true;
+            return false;
+        }
     }
-    public class MasteryPageDto
+    public class MasteryPageDto : IEquatable<MasteryPageDto>
     {
         public bool current { get; set; }
         public long id { get; set; }
         public List<MasteryDto> masteries { get; set; }
         public string name { get; set; }
+
+        public bool Equals(MasteryPageDto other)
+        {
+            if (this.current == other.current &&
+            this.id == other.id &&
+            this.masteries == other.masteries &&
+            this.name == other.name)
+                return true;
+            return false;
+        }
     }
     #endregion
     #region Rune pages by summoner id
-    public class RunePagesDto
+    public class RunePagesDto : IEquatable<RunePagesDto>
     {
         public HashSet<RunePageDto> pages { get; set; }
         public long summonerId { get; set; }
+
+        public bool Equals(RunePagesDto other)
+        {
+            if (this.pages == other.pages &&
+            this.summonerId == other.summonerId)
+                return true;
+            return false;
+        }
     }
-    public class RunePageDto
+    public class RunePageDto : IEquatable<RunePageDto>
     {
         public bool current { get; set; }
         public long id { get; set; }
         public string name { get; set; }
         public HashSet<RuneSlotDto> slots { get; set; }
+
+        public bool Equals(RunePageDto other)
+        {
+            if (this.current == other.current &&
+            this.id == other.id &&
+            this.name == other.name &&
+            this.slots == other.slots)
+                return true;
+            return false;
+        }
     }
-    public class RuneSlotDto
+    public class RuneSlotDto : IEquatable<RuneSlotDto>
     {
         public int runeId { get; set; }
         public int runeSlotId { get; set; }
+
+        public bool Equals(RuneSlotDto other)
+        {
+            if (this.runeId == other.runeId &&
+            this.runeSlotId == other.runeSlotId)
+                return true;
+            return false;
+        }
     }
     #endregion
     #endregion
