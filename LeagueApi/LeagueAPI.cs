@@ -928,7 +928,7 @@ namespace LeagueApi
         public bool Equals(ItemListDto other)
         {
             if (this.basic == other.basic &&
-            this.data == other.data &&
+            this.data.SequenceEqual(other.data) &&
             this.groups.SequenceEqual(other.groups) &&
             this.tree.SequenceEqual(other.tree) &&
             this.type == other.type &&
@@ -978,7 +978,7 @@ namespace LeagueApi
             this.image == other.image &&
             this.inStore == other.inStore &&
             this.into.SequenceEqual(other.into) &&
-            this.maps == other.maps &&
+            this.maps.SequenceEqual(other.maps) &&
             this.name == other.name &&
             this.plaintext == other.plaintext &&
             this.requiredChampion == other.requiredChampion &&
@@ -1039,7 +1039,7 @@ namespace LeagueApi
             this.consumed == other.consumed &&
             this.depth == other.depth &&
             this.description == other.description &&
-            this.effect == other.effect &&
+            this.effect.SequenceEqual(other.effect) &&
             this.from.SequenceEqual(other.from) &&
             this.gold == other.gold &&
             this.group == other.group &&
@@ -1048,7 +1048,7 @@ namespace LeagueApi
             this.image == other.image &&
             this.inStore == other.inStore &&
             this.into.SequenceEqual(other.into) &&
-            this.maps == other.maps &&
+            this.maps.SequenceEqual(other.maps) &&
             this.name == other.name &&
             this.plaintext == other.plaintext &&
             this.requiredChampion == other.requiredChampion &&
@@ -1086,7 +1086,7 @@ namespace LeagueApi
 
         public bool Equals(MasteryListDto other)
         {
-            if (this.data == other.data &&
+            if (this.data.SequenceEqual(other.data) &&
             this.tree == other.tree &&
             this.type == other.type &&
             this.version == other.version)
@@ -1173,7 +1173,7 @@ namespace LeagueApi
         public bool Equals(RuneListDto other)
         {
             if (this.basic == other.basic &&
-            this.data == other.data &&
+            this.data.SequenceEqual(other.data) &&
             this.type == other.type &&
             this.version == other.version)
                 return true;
@@ -1219,7 +1219,7 @@ namespace LeagueApi
             this.image == other.image &&
             this.inStore == other.inStore &&
             this.into.SequenceEqual(other.into) &&
-            this.maps == other.maps &&
+            this.maps.SequenceEqual(other.maps) &&
             this.name == other.name &&
             this.plaintext == other.plaintext &&
             this.requiredChampion == other.requiredChampion &&
@@ -1243,7 +1243,7 @@ namespace LeagueApi
 
         public bool Equals(SummonerSpellListDto other)
         {
-            if (this.data == other.data &&
+            if (this.data.SequenceEqual(other.data) &&
             this.type == other.type &&
             this.version == other.version)
                 return true;
@@ -1780,7 +1780,7 @@ namespace LeagueApi
         public bool Equals(Frame other)
         {
             if (this.events.SequenceEqual(other.events) &&
-            this.participantFrames == other.participantFrames &&
+            this.participantFrames.SequenceEqual(other.participantFrames) &&
             this.timestamp == other.timestamp)
                 return true;
             return false;
