@@ -1,14 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace LeagueApi
 {
+    #region Objects
     // ToDo: Add leaguev2.5
- 
+
     // Shared
     #region Shared
     public class Observer
     {
         public string encryptionKey { get; set; }
+        public bool Equals(Observer other)
+        {
+            if (this.encryptionKey == other.encryptionKey)
+                return true;
+            return false;
+        }
     }
     public class Mastery
     {
@@ -126,6 +137,7 @@ namespace LeagueApi
         public int y { get; set; }
     }
     #endregion
+
     // Champion v1.2
     #region Championv1.2
     // Champion
@@ -1040,5 +1052,226 @@ namespace LeagueApi
         public int runeSlotId { get; set; }
     }
     #endregion
+    #endregion
+    #endregion
+    #region Functions
+    public class LeagueApi
+    {
+        #region Varibles
+        // Request match list
+        private static string MATCH_LIST_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/?championIds=&seasons=PRESEASON2015,SEASON2015,PRESEASON2016,SEASON2016&api_key=";
+
+        // Request match info
+        private static string MATCH_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/match/?api_key=";
+
+        // Request champion list
+        private static string CHAMP_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=";
+
+        // Request masteries list
+        private static string MASTERY_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/mastery?version=&api_key=";
+
+        // SMN Name request URL
+        private static string SMN_NAME_REQUEST = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/?api_key=";
+
+        // League status request
+        private static string LOLSTATUS_REQUEST = "http://status.leagueoflegends.com/shards/na";
+        #endregion
+
+        private static T Get_Json<T>(string url)
+        {
+            var webReq = (HttpWebRequest)WebRequest.Create(url);
+
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)webReq.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            var sw = new StreamReader(response.GetResponseStream());
+            var contents = sw.ReadToEnd();
+
+            T jsonRet;
+            try
+            {
+                jsonRet = JsonConvert.DeserializeObject<T>(contents);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return jsonRet;
+        }
+
+        // Retrieves masteries from a list of matches.
+        // API: match-v2.2
+        public static List<Mastery> Get_Mastery_From_Match_ID(long matchid, long smnid, string apikey)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = MATCH_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("match/") + 6, matchid.ToString());
+            
+            MatchDetail Json;
+            try
+            {
+                Json = Get_Json<MatchDetail>(url);
+
+                var identities = Json.participantIdentities;
+                long identID = -1;
+
+                foreach (ParticipantIdentity obj in identities)
+                {
+                    if (obj.player.summonerId == smnid)
+                    {
+                        identID = obj.participantId;
+                    }
+                }
+
+                var participants = Json.participants;
+                foreach (Participant obj in participants)
+                {
+                    if (obj.participantId == identID)
+                    {
+                        return obj.masteries;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return null;
+        }
+
+        // Retrieve status of the lol servers
+        // API: lol-status-v1.0
+        public static statusContainer Get_LoL_Status()
+        {
+            statusContainer retval = new statusContainer();
+            ShardStatus json;
+            try
+            {
+                json = Get_Json<ShardStatus>(LOLSTATUS_REQUEST);
+
+                var services = json.services;
+
+                foreach (Service obj in services)
+                {
+                    if (obj.name == "Client")
+                        retval.client = obj.status;
+                    else if (obj.name == "Game")
+                        retval.game = (string)obj.status;
+                    else if (obj.name == "Store")
+                        retval.store = (string)obj.status;
+                    else if (obj.name == "Website")
+                        retval.website = (string)obj.status;
+                }
+
+                return retval;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // Retrieves a list of matches based on sumoner ID and/or championid
+        // API: matchlist-v2.2
+        public static List<MatchReference> Get_Matches_From_Summoner_ID(long id, string apikey, string champid = "")
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = MATCH_LIST_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("by-summoner/") + 12, id.ToString());
+            url = url.Insert(url.IndexOf("?championIds=") + 13, champid);
+
+            MatchList Json;
+            try
+            {
+                Json = Get_Json<MatchList>(url);
+
+                return Json.matches;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // Gets summoner details by name.  Returns -1 if error occurs
+        // API: summoner-v1.4
+        public static long Get_Summoner_ID_By_Name(string name, string apikey)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = SMN_NAME_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("by-name/") + 8, name.ToLower());
+
+            Dictionary<string, SummonerDto> Json;
+            try
+            {
+                Json = Get_Json<Dictionary<string, SummonerDto>>(url);
+                return Json[name.ToLower()].id;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // API: lol-static-data-v1.2
+        public static MasteryListDto Get_Masteries(string apikey, string version = "")
+        {
+            try
+            {
+                var url = MASTERY_REQUEST + apikey;
+                url = url.Insert(url.IndexOf("?version=") + 9, version);
+                return Get_Json<MasteryListDto>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        // API: lol-static-data-v1.2
+        public static ChampionListDto Get_Champions(string apikey, string version = "")
+        {
+            try
+            {
+                return Get_Json<ChampionListDto>(CHAMP_REQUEST + apikey);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+    }
+    public class statusContainer : IEquatable<statusContainer>
+    {
+        public string client { get; set; }
+        public string store { get; set; }
+        public string game { get; set; }
+        public string website { get; set; }
+
+        public bool Equals(statusContainer other)
+        {
+            if (this.client == other.client &&
+                this.store == other.store &&
+                this.game == other.game &&
+                this.website == other.website)
+                return true;
+            return false;
+        }
+    }
     #endregion
 }
