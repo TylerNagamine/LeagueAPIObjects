@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace LeagueApi
 {
@@ -243,7 +244,7 @@ namespace LeagueApi
 
         public bool Equals(SpellVarsDto other)
         {
-            if (this.coeff == other.coeff &&
+            if (this.coeff.SequenceEqual(other.coeff) &&
             this.dyn == other.dyn &&
             this.key == other.key &&
             this.link == other.link &&
@@ -292,10 +293,10 @@ namespace LeagueApi
 
         public bool Equals(ChampionListDto other)
         {
-            if (this.champions == other.champions &&
-            this.data == other.data &&
+            if (this.champions.SequenceEqual(other.champions) &&
+            this.data.SequenceEqual(other.data) &&
             this.format == other.format &&
-            this.keys == other.keys &&
+            this.keys.SequenceEqual(other.keys) &&
             this.type == other.type &&
             this.version == other.version)
                 return true;
@@ -336,9 +337,9 @@ namespace LeagueApi
             this.freeToPlay == other.freeToPlay &&
             this.id == other.id &&
             this.rankedPlayEnabled == other.rankedPlayEnabled &&
-            this.allytips == other.allytips &&
+            this.allytips.SequenceEqual(other.allytips) &&
             this.blurb == other.blurb &&
-            this.enemytips == other.enemytips &&
+            this.enemytips.SequenceEqual(other.enemytips) &&
             this.image == other.image &&
             this.info == other.info &&
             this.key == other.key &&
@@ -346,11 +347,11 @@ namespace LeagueApi
             this.name == other.name &&
             this.partype == other.partype &&
             this.passive == other.passive &&
-            this.recommended == other.recommended &&
-            this.skins == other.skins &&
-            this.spells == other.spells &&
+            this.recommended.SequenceEqual(other.recommended) &&
+            this.skins.SequenceEqual(other.skins) &&
+            this.spells.SequenceEqual(other.spells) &&
             this.stats == other.stats &&
-            this.tags == other.tags &&
+            this.tags.SequenceEqual(other.tags) &&
             this.title == other.title)
                 return true;
             return false;
@@ -376,7 +377,7 @@ namespace LeagueApi
 
         public bool Equals(CurrentGameInfo other)
         {
-            if (this.bannedChampions == other.bannedChampions &&
+            if (this.bannedChampions.SequenceEqual(other.bannedChampions) &&
             this.gameId == other.gameId &&
             this.gameLength == other.gameLength &&
             this.gameMode == other.gameMode &&
@@ -385,7 +386,7 @@ namespace LeagueApi
             this.gameType == other.gameType &&
             this.mapId == other.mapId &&
             this.observers == other.observers &&
-            this.participants == other.participants &&
+            this.participants.SequenceEqual(other.participants) &&
             this.platformId == other.platformId)
                 return true;
             return false;
@@ -409,9 +410,9 @@ namespace LeagueApi
         {
             if (this.bot == other.bot &&
             this.championId == other.championId &&
-            this.masteries == other.masteries &&
+            this.masteries.SequenceEqual(other.masteries) &&
             this.profileIconId == other.profileIconId &&
-            this.runes == other.runes &&
+            this.runes.SequenceEqual(other.runes) &&
             this.spell1Id == other.spell1Id &&
             this.spell2Id == other.spell2Id &&
             this.summonerId == other.summonerId &&
@@ -433,7 +434,7 @@ namespace LeagueApi
         public bool Equals(FeaturedGames other)
         {
             if (this.clientRefreshInterval == other.clientRefreshInterval &&
-            this.gameList == other.gameList)
+            this.gameList.SequenceEqual(other.gameList))
                 return true;
             return false;
         }
@@ -454,7 +455,7 @@ namespace LeagueApi
 
         public bool Equals(FeaturedGameInfo other)
         {
-            if (this.bannedChampions == other.bannedChampions &&
+            if (this.bannedChampions.SequenceEqual(other.bannedChampions) &&
             this.gameId == other.gameId &&
             this.gameLength == other.gameLength &&
             this.gameMode == other.gameMode &&
@@ -463,7 +464,7 @@ namespace LeagueApi
             this.gameType == other.gameType &&
             this.mapId == other.mapId &&
             this.observers == other.observers &&
-            this.participants == other.participants &&
+            this.participants.SequenceEqual(other.participants) &&
             this.platformId == other.platformId)
                 return true;
             return false;
@@ -481,7 +482,7 @@ namespace LeagueApi
 
         public bool Equals(RecentGamesDto other)
         {
-            if (this.games == other.games &&
+            if (this.games.SetEquals(other.games) &&
             this.summonerId == other.summonerId)
                 return true;
             return false;
@@ -509,7 +510,7 @@ namespace LeagueApi
         {
             if (this.championId == other.championId &&
             this.createDate == other.createDate &&
-            this.fellowPlayers == other.fellowPlayers &&
+            this.fellowPlayers.SequenceEqual(other.fellowPlayers) &&
             this.gameId == other.gameId &&
             this.gameMode == other.gameMode &&
             this.gameType == other.gameType &&
@@ -739,15 +740,15 @@ namespace LeagueApi
 
         public bool Equals(ChampionSpellDto other)
         {
-            if (this.altimages == other.altimages &&
-            this.cooldown == other.cooldown &&
+            if (this.altimages.SequenceEqual(other.altimages) &&
+            this.cooldown.SequenceEqual(other.cooldown) &&
             this.cooldownBurn == other.cooldownBurn &&
-            this.cost == other.cost &&
+            this.cost.SequenceEqual(other.cost) &&
             this.costBurn == other.costBurn &&
             this.costType == other.costType &&
             this.description == other.description &&
-            this.effect == other.effect &&
-            this.effectBurn == other.effectBurn &&
+            this.effect.SequenceEqual(other.effect) &&
+            this.effectBurn.SequenceEqual(other.effectBurn) &&
             this.image == other.image &&
             this.key == other.key &&
             this.leveltip == other.leveltip &&
@@ -759,7 +760,7 @@ namespace LeagueApi
             this.sanitizedDescription == other.sanitizedDescription &&
             this.sanitizedTooltip == other.sanitizedTooltip &&
             this.tooltip == other.tooltip &&
-            this.vars == other.vars)
+            this.vars.SequenceEqual(other.vars))
                 return true;
             return false;
         }
@@ -810,7 +811,7 @@ namespace LeagueApi
 
         public bool Equals(RecommendedDto other)
         {
-            if (this.blocks == other.blocks &&
+            if (this.blocks.SequenceEqual(other.blocks) &&
             this.champion == other.champion &&
             this.map == other.map &&
             this.mode == other.mode &&
@@ -893,7 +894,7 @@ namespace LeagueApi
 
         public bool Equals(BlockDto other)
         {
-            if (this.items == other.items &&
+            if (this.items.SequenceEqual(other.items) &&
             this.recMath == other.recMath &&
             this.type == other.type)
                 return true;
@@ -928,8 +929,8 @@ namespace LeagueApi
         {
             if (this.basic == other.basic &&
             this.data == other.data &&
-            this.groups == other.groups &&
-            this.tree == other.tree &&
+            this.groups.SequenceEqual(other.groups) &&
+            this.tree.SequenceEqual(other.tree) &&
             this.type == other.type &&
             this.version == other.version)
                 return true;
@@ -969,14 +970,14 @@ namespace LeagueApi
             this.consumed == other.consumed &&
             this.depth == other.depth &&
             this.description == other.description &&
-            this.from == other.from &&
+            this.from.SequenceEqual(other.from) &&
             this.gold == other.gold &&
             this.group == other.group &&
             this.hideFromAll == other.hideFromAll &&
             this.id == other.id &&
             this.image == other.image &&
             this.inStore == other.inStore &&
-            this.into == other.into &&
+            this.into.SequenceEqual(other.into) &&
             this.maps == other.maps &&
             this.name == other.name &&
             this.plaintext == other.plaintext &&
@@ -986,7 +987,7 @@ namespace LeagueApi
             this.specialRecipe == other.specialRecipe &&
             this.stacks == other.stacks &&
             this.stats == other.stats &&
-            this.tags == other.tags)
+            this.tags.SequenceEqual(other.tags))
                 return true;
             return false;
         }
@@ -1039,14 +1040,14 @@ namespace LeagueApi
             this.depth == other.depth &&
             this.description == other.description &&
             this.effect == other.effect &&
-            this.from == other.from &&
+            this.from.SequenceEqual(other.from) &&
             this.gold == other.gold &&
             this.group == other.group &&
             this.hideFromAll == other.hideFromAll &&
             this.id == other.id &&
             this.image == other.image &&
             this.inStore == other.inStore &&
-            this.into == other.into &&
+            this.into.SequenceEqual(other.into) &&
             this.maps == other.maps &&
             this.name == other.name &&
             this.plaintext == other.plaintext &&
@@ -1056,7 +1057,7 @@ namespace LeagueApi
             this.specialRecipe == other.specialRecipe &&
             this.stacks == other.stacks &&
             this.stats == other.stats &&
-            this.tags == other.tags)
+            this.tags.SequenceEqual(other.tags))
                 return true;
             return false;
         }
@@ -1069,7 +1070,7 @@ namespace LeagueApi
         public bool Equals(ItemTreeDto other)
         {
             if (this.header == other.header &&
-            this.tags == other.tags)
+            this.tags.SequenceEqual(other.tags))
                 return true;
             return false;
         }
@@ -1107,7 +1108,7 @@ namespace LeagueApi
 
         public bool Equals(MasteryDto other)
         {
-            if (this.description == other.description &&
+            if (this.description.SequenceEqual(other.description) &&
             this.id == other.id &&
             this.image == other.image &&
             this.masteryTree == other.masteryTree &&
@@ -1115,7 +1116,7 @@ namespace LeagueApi
             this.prereq == other.prereq &&
             this.rank == other.rank &&
             this.ranks == other.ranks &&
-            this.sanitizedDescription == other.sanitizedDescription)
+            this.sanitizedDescription.SequenceEqual(other.sanitizedDescription))
                 return true;
             return false;
         }
@@ -1128,9 +1129,9 @@ namespace LeagueApi
 
         public bool Equals(MasteryTreeDto other)
         {
-            if (this.Cunning == other.Cunning &&
-            this.Ferocity == other.Ferocity &&
-            this.Resolve == other.Resolve)
+            if (this.Cunning.SequenceEqual(other.Cunning) &&
+            this.Ferocity.SequenceEqual(other.Ferocity) &&
+            this.Resolve.SequenceEqual(other.Resolve))
                 return true;
             return false;
         }
@@ -1142,7 +1143,7 @@ namespace LeagueApi
 
         public bool Equals(MasteryTreeListDto other)
         {
-            if (this.masteryTreeItems == other.masteryTreeItems)
+            if (this.masteryTreeItems.SequenceEqual(other.masteryTreeItems))
                 return true;
             return false;
         }
@@ -1211,13 +1212,13 @@ namespace LeagueApi
             this.consumed == other.consumed &&
             this.depth == other.depth &&
             this.description == other.description &&
-            this.from == other.from &&
+            this.from.SequenceEqual(other.from) &&
             this.group == other.group &&
             this.hideFromAll == other.hideFromAll &&
             this.id == other.id &&
             this.image == other.image &&
             this.inStore == other.inStore &&
-            this.into == other.into &&
+            this.into.SequenceEqual(other.into) &&
             this.maps == other.maps &&
             this.name == other.name &&
             this.plaintext == other.plaintext &&
@@ -1227,7 +1228,7 @@ namespace LeagueApi
             this.specialRecipe == other.specialRecipe &&
             this.stacks == other.stacks &&
             this.stats == other.stats &&
-            this.tags == other.tags)
+            this.tags.SequenceEqual(other.tags))
                 return true;
             return false;
         }
@@ -1277,20 +1278,20 @@ namespace LeagueApi
 
         public bool Equals(SummonerSpellDto other)
         {
-            if (this.cooldown == other.cooldown &&
+            if (this.cooldown.SequenceEqual(other.cooldown) &&
             this.cooldownBurn == other.cooldownBurn &&
-            this.cost == other.cost &&
+            this.cost.SequenceEqual(other.cost) &&
             this.costBurn == other.costBurn &&
             this.costType == other.costType &&
             this.description == other.description &&
-            this.effect == other.effect &&
-            this.effectBurn == other.effectBurn &&
+            this.effect.SequenceEqual(other.effect) &&
+            this.effectBurn.SequenceEqual(other.effectBurn) &&
             this.id == other.id &&
             this.image == other.image &&
             this.key == other.key &&
             this.leveltip == other.leveltip &&
             this.maxrank == other.maxrank &&
-            this.modes == other.modes &&
+            this.modes.SequenceEqual(other.modes) &&
             this.name == other.name &&
             this.range == other.range &&
             this.rangeBurn == other.rangeBurn &&
@@ -1299,7 +1300,7 @@ namespace LeagueApi
             this.sanitizedTooltip == other.sanitizedTooltip &&
             this.summonerLevel == other.summonerLevel &&
             this.tooltip == other.tooltip &&
-            this.vars == other.vars)
+            this.vars.SequenceEqual(other.vars))
                 return true;
             return false;
         }
@@ -1311,8 +1312,8 @@ namespace LeagueApi
 
         public bool Equals(LevelTipDto other)
         {
-            if (this.effect == other.effect &&
-            this.label == other.label)
+            if (this.effect.SequenceEqual(other.effect) &&
+            this.label.SequenceEqual(other.label))
                 return true;
             return false;
         }
@@ -1335,10 +1336,10 @@ namespace LeagueApi
         public bool Equals(ShardStatus other)
         {
             if (this.hostname == other.hostname &&
-            this.locales == other.locales &&
+            this.locales.SequenceEqual(other.locales) &&
             this.name == other.name &&
             this.region_tag == other.region_tag &&
-            this.services == other.services &&
+            this.services.SequenceEqual(other.services) &&
             this.slug == other.slug)
                 return true;
             return false;
@@ -1353,7 +1354,7 @@ namespace LeagueApi
 
         public bool Equals(Service other)
         {
-            if (this.incidents == other.incidents &&
+            if (this.incidents.SequenceEqual(other.incidents) &&
             this.name == other.name &&
             this.slug == other.slug &&
             this.status == other.status)
@@ -1373,7 +1374,7 @@ namespace LeagueApi
             if (this.active == other.active &&
             this.created_at == other.created_at &&
             this.id == other.id &&
-            this.updates == other.updates)
+            this.updates.SequenceEqual(other.updates))
                 return true;
             return false;
         }
@@ -1395,7 +1396,7 @@ namespace LeagueApi
             this.created_at == other.created_at &&
             this.id == other.id &&
             this.severity == other.severity &&
-            this.translations == other.translations &&
+            this.translations.SequenceEqual(other.translations) &&
             this.updated_at == other.updated_at)
                 return true;
             return false;
@@ -1447,13 +1448,13 @@ namespace LeagueApi
             this.matchMode == other.matchMode &&
             this.matchType == other.matchType &&
             this.matchVersion == other.matchVersion &&
-            this.participantIdentities == other.participantIdentities &&
-            this.participants == other.participants &&
+            this.participantIdentities.SequenceEqual(other.participantIdentities) &&
+            this.participants.SequenceEqual(other.participants) &&
             this.platformId == other.platformId &&
             this.queueType == other.queueType &&
             this.region == other.region &&
             this.season == other.season &&
-            this.teams == other.teams &&
+            this.teams.SequenceEqual(other.teams) &&
             this.timeline == other.timeline)
                 return true;
             return false;
@@ -1476,9 +1477,9 @@ namespace LeagueApi
         {
             if (this.championId == other.championId &&
             this.highestAchievedSeasonTier == other.highestAchievedSeasonTier &&
-            this.masteries == other.masteries &&
+            this.masteries.SequenceEqual(other.masteries) &&
             this.participantId == other.participantId &&
-            this.runes == other.runes &&
+            this.runes.SequenceEqual(other.runes) &&
             this.spell1Id == other.spell1Id &&
             this.spell2Id == other.spell2Id &&
             this.stats == other.stats &&
@@ -1522,7 +1523,7 @@ namespace LeagueApi
 
         public bool Equals(Team other)
         {
-            if (this.bans == other.bans &&
+            if (this.bans.SequenceEqual(other.bans) &&
             this.baronKills == other.baronKills &&
             this.dominionVictoryScore == other.dominionVictoryScore &&
             this.dragonKills == other.dragonKills &&
@@ -1550,7 +1551,7 @@ namespace LeagueApi
         public bool Equals(Timeline other)
         {
             if (this.frameInterval == other.frameInterval &&
-            this.frames == other.frames)
+            this.frames.SequenceEqual(other.frames))
                 return true;
             return false;
         }
@@ -1778,7 +1779,7 @@ namespace LeagueApi
 
         public bool Equals(Frame other)
         {
-            if (this.events == other.events &&
+            if (this.events.SequenceEqual(other.events) &&
             this.participantFrames == other.participantFrames &&
             this.timestamp == other.timestamp)
                 return true;
@@ -1829,7 +1830,7 @@ namespace LeagueApi
         public bool Equals(Event other)
         {
             if (this.ascendedType == other.ascendedType &&
-            this.assistingParticipantIds == other.assistingParticipantIds &&
+            this.assistingParticipantIds.SequenceEqual(other.assistingParticipantIds) &&
             this.buildingType == other.buildingType &&
             this.creatorId == other.creatorId &&
             this.eventType == other.eventType &&
@@ -1909,7 +1910,7 @@ namespace LeagueApi
         public bool Equals(MatchList other)
         {
             if (this.endIndex == other.endIndex &&
-            this.matches == other.matches &&
+            this.matches.SequenceEqual(other.matches) &&
             this.startIndex == other.startIndex &&
             this.totalGames == other.totalGames)
                 return true;
@@ -1956,7 +1957,7 @@ namespace LeagueApi
 
         public bool Equals(RankedStatsDto other)
         {
-            if (this.champions == other.champions &&
+            if (this.champions.SequenceEqual(other.champions) &&
             this.modifyDate == other.modifyDate &&
             this.summonerId == other.summonerId)
                 return true;
@@ -2106,7 +2107,7 @@ namespace LeagueApi
 
         public bool Equals(PlayerStatsSummaryListDto other)
         {
-            if (this.playerStatSummaries == other.playerStatSummaries &&
+            if (this.playerStatSummaries.SequenceEqual(other.playerStatSummaries) &&
             this.summonerId == other.summonerId)
                 return true;
             return false;
@@ -2165,7 +2166,7 @@ namespace LeagueApi
 
         public bool Equals(MasteryPagesDto other)
         {
-            if (this.pages == other.pages &&
+            if (this.pages.SetEquals(other.pages) &&
             this.summonerId == other.summonerId)
                 return true;
             return false;
@@ -2182,7 +2183,7 @@ namespace LeagueApi
         {
             if (this.current == other.current &&
             this.id == other.id &&
-            this.masteries == other.masteries &&
+            this.masteries.SequenceEqual(other.masteries) &&
             this.name == other.name)
                 return true;
             return false;
@@ -2197,7 +2198,7 @@ namespace LeagueApi
 
         public bool Equals(RunePagesDto other)
         {
-            if (this.pages == other.pages &&
+            if (this.pages.SetEquals(other.pages) &&
             this.summonerId == other.summonerId)
                 return true;
             return false;
@@ -2215,7 +2216,7 @@ namespace LeagueApi
             if (this.current == other.current &&
             this.id == other.id &&
             this.name == other.name &&
-            this.slots == other.slots)
+            this.slots.SetEquals(other.slots))
                 return true;
             return false;
         }
