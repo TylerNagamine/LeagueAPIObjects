@@ -1319,7 +1319,6 @@ namespace LeagueApi
         }
     }
     #endregion
-
     #endregion
 
     // status v1.0
@@ -2237,6 +2236,7 @@ namespace LeagueApi
     #endregion
     #endregion
     #endregion
+
     #region Functions
     public class LeagueApi
     {
@@ -2245,21 +2245,27 @@ namespace LeagueApi
         private static string MATCH_LIST_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/?championIds=&seasons=PRESEASON2015,SEASON2015,PRESEASON2016,SEASON2016&api_key=";
 
         // Request match info
-        private static string MATCH_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/match/?api_key=";
-
-        // Request champion list
-        private static string CHAMP_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=";
-
-        // Request masteries list
-        private static string MASTERY_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/mastery?version=&api_key=";
+        private static string MATCH_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/match/?includeTimeline=&api_key=";
+        private static string CHAMP_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?locale=&version=&dataById=&api_key=";
+        private static string MASTERY_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/mastery?locale=&version=&api_key=";
+        private static string ITEM_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?locale=&version=&api_key=";
+        private static string RUNE_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/rune?locale=&version=&api_key=";
+        private static string SMN_SPELL_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/summoner-spell?locale=&version=&dataById=&api_key=";
 
         // SMN Name request URL
         private static string SMN_NAME_REQUEST = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/?api_key=";
+        private static string SMN_REQUEST = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/?api_key=";
+        private static string SMN_MASTERY_REQUEST = "https://na.api.pvp.net/api/lol/na/v1.4/summoner//masteries?api_key=";
+        private static string SMN_RUNE_REQUEST = "https://na.api.pvp.net/api/lol/na/v1.4/summoner//runes?api_key=";
 
         // League status request
         private static string LOLSTATUS_REQUEST = "http://status.leagueoflegends.com/shards/na";
+
+        // Version request
+        private static string VERSION_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/versions?api_key=";
         #endregion
 
+        // Helper function: Get the JSON object from url
         private static T Get_Json<T>(string url)
         {
             var webReq = (HttpWebRequest)WebRequest.Create(url);
@@ -2292,45 +2298,23 @@ namespace LeagueApi
 
         // Retrieves masteries from a list of matches.
         // API: match-v2.2
-        public static List<Mastery> Get_Mastery_From_Match_ID(long matchid, long smnid, string apikey)
+        public static MatchDetail Get_Match_From_Match_ID(long matchid, string apikey, bool timeline = false)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
             var url = MATCH_REQUEST + apikey;
             url = url.Insert(url.IndexOf("match/") + 6, matchid.ToString());
-            
-            MatchDetail Json;
+            url = url.Insert(url.IndexOf("?includeTimeline=") + 17, timeline.ToString());
+
             try
             {
-                Json = Get_Json<MatchDetail>(url);
-
-                var identities = Json.participantIdentities;
-                long identID = -1;
-
-                foreach (ParticipantIdentity obj in identities)
-                {
-                    if (obj.player.summonerId == smnid)
-                    {
-                        identID = obj.participantId;
-                    }
-                }
-
-                var participants = Json.participants;
-                foreach (Participant obj in participants)
-                {
-                    if (obj.participantId == identID)
-                    {
-                        return obj.masteries;
-                    }
-                }
+                return Get_Json<MatchDetail>(url);
             }
             catch (Exception e)
             {
                 throw e;
             }
-
-            return null;
         }
 
         // Retrieve status of the lol servers
@@ -2410,15 +2394,51 @@ namespace LeagueApi
                 throw e;
             }
         }
-
-        // API: lol-static-data-v1.2
-        public static MasteryListDto Get_Masteries(string apikey, string version = "")
+        public static Dictionary<string, SummonerDto> Get_Summoner_By_ID (long id, string apikey)
         {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = SMN_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("summoner/") + 9, id.ToString());
+
             try
             {
-                var url = MASTERY_REQUEST + apikey;
-                url = url.Insert(url.IndexOf("?version=") + 9, version);
-                return Get_Json<MasteryListDto>(url);
+                return Get_Json<Dictionary<string, SummonerDto>>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static Dictionary<string, MasteryPagesDto> Get_Summoner_Masteries (long id, string apikey)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = SMN_MASTERY_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("summoner/") + 9, id.ToString());
+
+            try
+            {
+                return Get_Json<Dictionary<string, MasteryPagesDto>>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static Dictionary<string, RunePagesDto> Get_Summoner_Runes (long id, string apikey)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = SMN_RUNE_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("summoner/") + 9, id.ToString());
+
+            try
+            {
+                return Get_Json<Dictionary<string, RunePagesDto>>(url);
             }
             catch (Exception e)
             {
@@ -2427,11 +2447,100 @@ namespace LeagueApi
         }
 
         // API: lol-static-data-v1.2
-        public static ChampionListDto Get_Champions(string apikey, string version = "")
+        public static MasteryListDto Get_Masteries(string apikey, string version = "", string locale = "en_US")
         {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = MASTERY_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("?version=") + 9, version);
+            url = url.Insert(url.IndexOf("?locale=") + 8, locale);
             try
             {
-                return Get_Json<ChampionListDto>(CHAMP_REQUEST + apikey);
+                return Get_Json<MasteryListDto>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static ChampionListDto Get_Champions(string apikey, string version = "", string locale = "en_US", bool databyid = false)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = CHAMP_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("?version=") + 9, version);
+            url = url.Insert(url.IndexOf("&dataById=") + 10, databyid.ToString());
+            url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+            try
+            {
+                return Get_Json<ChampionListDto>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static ItemListDto Get_Items(string apikey, string version = "", string locale = "en_US")
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = ITEM_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("?version=") + 9, version);
+            url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+            try
+            {
+                return Get_Json<ItemListDto>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static List<string> Get_Version(string apikey)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+            try
+            {
+                return Get_Json<List<string>>(VERSION_REQUEST + apikey);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static SummonerSpellListDto Get_Summoner_Spells(string apikey, string version = "", string locale = "en_US", bool databyid = false)
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = SMN_SPELL_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+            url = url.Insert(url.IndexOf("&dataById=") + 10, databyid.ToString());
+            url = url.Insert(url.IndexOf("&version=") + 9, version);
+            try
+            {
+                return Get_Json<SummonerSpellListDto>(url);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public static RuneListDto Get_Runes(string apikey, string version = "", string locale = "en_US")
+        {
+            if (String.IsNullOrEmpty(apikey))
+                throw new Exception("Invalid API key");
+
+            var url = SMN_SPELL_REQUEST + apikey;
+            url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+            url = url.Insert(url.IndexOf("&version=") + 9, version);
+            try
+            {
+                return Get_Json<RuneListDto>(url);
             }
             catch (Exception e)
             {
