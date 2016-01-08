@@ -2242,7 +2242,7 @@ namespace LeagueApi
     {
         #region Varibles
         // Request match list
-        private static string MATCH_LIST_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/?championIds=&seasons=PRESEASON2015,SEASON2015,PRESEASON2016,SEASON2016&api_key=";
+        private static string MATCH_LIST_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/?championIds=&api_key=";
 
         // Request match info
         private static string MATCH_REQUEST = "https://na.api.pvp.net/api/lol/na/v2.2/match/?includeTimeline=&api_key=";
@@ -2270,18 +2270,18 @@ namespace LeagueApi
         {
             var webReq = (HttpWebRequest)WebRequest.Create(url);
 
-            HttpWebResponse response;
+            string contents = "";
             try
             {
-                response = (HttpWebResponse)webReq.GetResponse();
+                using (WebClient request = new WebClient())
+                {
+                    contents = request.DownloadString(url);
+                }
             }
             catch (Exception e)
             {
                 throw e;
             }
-
-            var sw = new StreamReader(response.GetResponseStream());
-            var contents = sw.ReadToEnd();
 
             T jsonRet;
             try
