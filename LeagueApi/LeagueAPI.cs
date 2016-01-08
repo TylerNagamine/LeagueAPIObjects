@@ -2265,25 +2265,22 @@ namespace LeagueApi
         private static string VERSION_REQUEST = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/versions?api_key=";
         #endregion
 
-        // Helper function: Get the JSON object from url
+        /// <summary>
+        /// Retrieves Json string from url and deserializes it into object type T
+        /// </summary>
+        /// <typeparam name="T">Type of object to return</typeparam>
+        /// <param name="url">Url source of Json string</param>
+        /// <returns>Object of type T containing information from Json string at URL</returns>
         private static T Get_Json<T>(string url)
         {
-            string contents = "";
+            var contents = "";
+            T jsonRet;
             try
             {
                 using (WebClient request = new WebClient())
                 {
                     contents = request.DownloadString(url);
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-            T jsonRet;
-            try
-            {
                 jsonRet = JsonConvert.DeserializeObject<T>(contents);
             }
             catch (Exception e)
@@ -2294,14 +2291,21 @@ namespace LeagueApi
             return jsonRet;
         }
 
-        // Retrieves masteries from a list of matches.
-        // API: match-v2.2
+        /// <summary>
+        /// Retrieves match from match Id.  
+        /// Api: matchv2.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="matchid">Id of match</param>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <param name="timeline">Flag indicating whether to include match timeline data</param>
+        /// <returns>MatchDetail containing match information</returns>
         public static MatchDetail Get_Match_From_Match_ID(long matchid, string apikey, bool timeline = false)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = MATCH_REQUEST + apikey;
+            string url = MATCH_REQUEST + apikey;
             url = url.Insert(url.IndexOf("match/") + 6, matchid.ToString());
             url = url.Insert(url.IndexOf("?includeTimeline=") + 17, timeline.ToString());
 
@@ -2315,17 +2319,20 @@ namespace LeagueApi
             }
         }
 
-        // Retrieve status of the lol servers
-        // API: lol-status-v1.0
+        /// <summary>
+        /// Retrieve status of League of Legends server. 
+        /// Api: lol-status-v1.0
+        /// Version: 5.24.2
+        /// </summary>
+        /// <returns>statusContainer object holding league status</returns>
         public static statusContainer Get_LoL_Status()
         {
             statusContainer retval = new statusContainer();
-            ShardStatus json;
             try
             {
-                json = Get_Json<ShardStatus>(LOLSTATUS_REQUEST);
+                ShardStatus json = Get_Json<ShardStatus>(LOLSTATUS_REQUEST);
 
-                var services = json.services;
+                List<Service> services = json.services;
 
                 foreach (Service obj in services)
                 {
@@ -2347,21 +2354,27 @@ namespace LeagueApi
             }
         }
 
-        // Retrieves a list of matches based on sumoner ID and/or championid
-        // API: matchlist-v2.2
+        /// <summary>
+        /// Retrieves a list of matches from Summoner ID.  
+        /// Api: matchlist-v2.2
+        /// /// Version: 5.24.2
+        /// </summary>
+        /// <param name="id">Summoner Id</param>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <param name="champid">Champion Id</param>
+        /// <returns>List<Matchreference> containing match information</returns>
         public static List<MatchReference> Get_Matches_From_Summoner_ID(long id, string apikey, string champid = "")
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = MATCH_LIST_REQUEST + apikey;
+            string url = MATCH_LIST_REQUEST + apikey;
             url = url.Insert(url.IndexOf("by-summoner/") + 12, id.ToString());
             url = url.Insert(url.IndexOf("?championIds=") + 13, champid);
 
-            MatchList Json;
             try
             {
-                Json = Get_Json<MatchList>(url);
+                MatchList Json = Get_Json<MatchList>(url);
 
                 return Json.matches;
             }
@@ -2371,20 +2384,25 @@ namespace LeagueApi
             }
         }
 
-        // Gets summoner details by name.  Returns -1 if error occurs
-        // API: summoner-v1.4
+        /// <summary>
+        /// Retrieve summoner details by name.  
+        /// Api: summoner-v1.4
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="name">Summoner name</param>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <returns>long containing summoner Id</returns>
         public static long Get_Summoner_ID_By_Name(string name, string apikey)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = SMN_NAME_REQUEST + apikey;
+            string url = SMN_NAME_REQUEST + apikey;
             url = url.Insert(url.IndexOf("by-name/") + 8, name.ToLower());
 
-            Dictionary<string, SummonerDto> Json;
             try
             {
-                Json = Get_Json<Dictionary<string, SummonerDto>>(url);
+                Dictionary<string, SummonerDto> Json = Get_Json<Dictionary<string, SummonerDto>>(url);
                 return Json[name.ToLower()].id;
             }
             catch (Exception e)
@@ -2392,12 +2410,21 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves summoner details by Id
+        /// Api: summoner-v1.4
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="id">Summoner Id</param>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <returns>Dictionary<string, SummonerDto> containing summoner information</returns>
         public static Dictionary<string, SummonerDto> Get_Summoner_By_ID (long id, string apikey)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = SMN_REQUEST + apikey;
+            string url = SMN_REQUEST + apikey;
             url = url.Insert(url.IndexOf("summoner/") + 9, id.ToString());
 
             try
@@ -2409,12 +2436,21 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves summoner mastery pages from summoner Id
+        /// Api: summoner-v1.4
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="id">Summoner Id</param>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <returns>Dictionary<string, MasterPagesDto> containing multiple mastery pages</returns>
         public static Dictionary<string, MasteryPagesDto> Get_Summoner_Masteries (long id, string apikey)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = SMN_MASTERY_REQUEST + apikey;
+            string url = SMN_MASTERY_REQUEST + apikey;
             url = url.Insert(url.IndexOf("summoner/") + 9, id.ToString());
 
             try
@@ -2426,6 +2462,15 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves summoner rune pages from summoner Id
+        /// Api: summoner-v1.4
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="id">Summoner Id</param>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <returns>Dictionary<string, RunePagesDto> containing multiple rune pages</returns>
         public static Dictionary<string, RunePagesDto> Get_Summoner_Runes (long id, string apikey)
         {
             if (String.IsNullOrEmpty(apikey))
@@ -2444,15 +2489,24 @@ namespace LeagueApi
             }
         }
 
-        // API: lol-static-data-v1.2
+        /// <summary>
+        /// Retrieves base mastery data
+        /// Api: lol-static-data-v1.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <param name="version">League update version.  Default: Latest (5.24.2)</param>
+        /// <param name="locale">Server locale/language.  Default: NA (en_US)</param>
+        /// <returns>MasteryListDto containing all masteries</returns>
         public static MasteryListDto Get_Masteries(string apikey, string version = "", string locale = "en_US")
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = MASTERY_REQUEST + apikey;
+            string url = MASTERY_REQUEST + apikey;
             url = url.Insert(url.IndexOf("?version=") + 9, version);
             url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+
             try
             {
                 return Get_Json<MasteryListDto>(url);
@@ -2462,15 +2516,27 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves base champion data
+        /// Api: lol-static-data-v1.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <param name="version">League update version.  Default: Latest (5.24.2)</param>
+        /// <param name="locale">Server locale/language.  Default: NA (en_US)</param>
+        /// <param name="databyid">Flag indicating whether to key Dictionary by Id or Champion name.  Default: false (Name)</param>
+        /// <returns>ChampionListDto containing all champions</returns>
         public static ChampionListDto Get_Champions(string apikey, string version = "", string locale = "en_US", bool databyid = false)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = CHAMP_REQUEST + apikey;
+            string  url = CHAMP_REQUEST + apikey;
             url = url.Insert(url.IndexOf("?version=") + 9, version);
             url = url.Insert(url.IndexOf("&dataById=") + 10, databyid.ToString());
             url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+
             try
             {
                 return Get_Json<ChampionListDto>(url);
@@ -2480,14 +2546,25 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves base items
+        /// Api: lol-static-data-v1.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <param name="version">League update version.  Default: Latest (5.24.2)</param>
+        /// <param name="locale">Server locale/language.  Default: NA (en_US)</param>
+        /// <returns>ItemListDto containing all item</returns>
         public static ItemListDto Get_Items(string apikey, string version = "", string locale = "en_US")
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = ITEM_REQUEST + apikey;
+            string url = ITEM_REQUEST + apikey;
             url = url.Insert(url.IndexOf("?version=") + 9, version);
             url = url.Insert(url.IndexOf("?locale=") + 8, locale);
+
             try
             {
                 return Get_Json<ItemListDto>(url);
@@ -2497,10 +2574,19 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves league version data
+        /// Api: lol-static-data-v1.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="apikey">Riot Games Api</param>
+        /// <returns>List<string> containing all valid version numbers</returns>
         public static List<string> Get_Version(string apikey)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
+
             try
             {
                 return Get_Json<List<string>>(VERSION_REQUEST + apikey);
@@ -2510,15 +2596,27 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves base summoner spells
+        /// Api: lol-static-data-v1.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="apikey">Riot Games Api key</param>
+        /// <param name="version">League update version. Default: Latest (5.24.2)</param>
+        /// <param name="locale">Server locale/language.  Default: NA (en_US)</param>
+        /// <param name="databyid">Flag indicating whether to key Dictionary by Id or summoner spell name.  Default: false (Name)</param>
+        /// <returns>SummonerSpellListDto containing all current summoner spells</returns>
         public static SummonerSpellListDto Get_Summoner_Spells(string apikey, string version = "", string locale = "en_US", bool databyid = false)
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = SMN_SPELL_REQUEST + apikey;
+            string url = SMN_SPELL_REQUEST + apikey;
             url = url.Insert(url.IndexOf("?locale=") + 8, locale);
             url = url.Insert(url.IndexOf("&dataById=") + 10, databyid.ToString());
             url = url.Insert(url.IndexOf("&version=") + 9, version);
+
             try
             {
                 return Get_Json<SummonerSpellListDto>(url);
@@ -2528,14 +2626,25 @@ namespace LeagueApi
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Retrieves base runes
+        /// Api: lol-static-data-v1.2
+        /// Version: 5.24.2
+        /// </summary>
+        /// <param name="apikey">Riot Games api key</param>
+        /// <param name="version">League update version.  Default: Latest (5.24.2)</param>
+        /// <param name="locale">Server locale/language.  Default: NA (en_US)</param>
+        /// <returns>RuneListDto containing all current runes</returns>
         public static RuneListDto Get_Runes(string apikey, string version = "", string locale = "en_US")
         {
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            var url = SMN_SPELL_REQUEST + apikey;
+            string url = SMN_SPELL_REQUEST + apikey;
             url = url.Insert(url.IndexOf("?locale=") + 8, locale);
             url = url.Insert(url.IndexOf("&version=") + 9, version);
+
             try
             {
                 return Get_Json<RuneListDto>(url);
@@ -2546,6 +2655,7 @@ namespace LeagueApi
             }
         }
     }
+
     public class statusContainer : IEquatable<statusContainer>
     {
         public string client { get; set; }
