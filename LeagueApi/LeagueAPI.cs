@@ -2268,8 +2268,6 @@ namespace LeagueApi
         // Helper function: Get the JSON object from url
         private static T Get_Json<T>(string url)
         {
-            var webReq = (HttpWebRequest)WebRequest.Create(url);
-
             string contents = "";
             try
             {
