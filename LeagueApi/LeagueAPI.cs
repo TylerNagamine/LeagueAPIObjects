@@ -2641,7 +2641,7 @@ namespace LeagueApi
             if (String.IsNullOrEmpty(apikey))
                 throw new Exception("Invalid API key");
 
-            string url = SMN_SPELL_REQUEST + apikey;
+            string url = RUNE_REQUEST + apikey;
             url = url.Insert(url.IndexOf("?locale=") + 8, locale);
             url = url.Insert(url.IndexOf("&version=") + 9, version);
 
